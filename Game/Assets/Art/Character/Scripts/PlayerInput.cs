@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[DefaultExecutionOrder(-2)]
 public class PlayerInput : MonoBehaviour, PlayerControls.IPlayerActions
 {
     public PlayerControls PlayerControls { get; private set; }
     public Vector2 MovementInput { get; private set; }
+    public Vector2 LookInput { get; private set; }
+
 
     private void OnEnable()
     {
@@ -27,5 +30,11 @@ public class PlayerInput : MonoBehaviour, PlayerControls.IPlayerActions
     {
         MovementInput = context.ReadValue<Vector2>();
         print(MovementInput);
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        
+        LookInput = context.ReadValue<Vector2>();
     }
 }

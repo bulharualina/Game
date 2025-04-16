@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
+
+[DefaultExecutionOrder(-1)]
 public class PlayerController : MonoBehaviour
 {
+    [Header("Components")]
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Camera playerCamera;
 
+    [Header("Base Movement")]
     public float runSpeed = 12f;
     public float gravity = -9.81f * 2;
     public float jumpHeight = 3f;
@@ -16,12 +20,18 @@ public class PlayerController : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
-    private PlayerInput playerInput;
-
     Vector3 velocity;
-
     bool isGrounded;
 
+
+    [Header("Camera Settings")]
+    public float lookSenseH = 0.1f;
+    public float lookSenseV = 0.1f;
+    public float lookLimitV = 89f;
+    
+    private PlayerInput playerInput;
+    private Vector2 cameraRotation = Vector2.zero;
+    private Vector2 playerTargetRotation = Vector2.zero;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -55,5 +65,17 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         characterController.Move(velocity * Time.deltaTime);
+    }
+
+    private void LateUpdate()
+    {
+        cameraRotation.x += lookSenseH * playerInput.LookInput.x;
+        cameraRotation.y = Mathf.Clamp(cameraRotation.y - lookSenseV * playerInput.LookInput.y, -lookLimitV,lookLimitV);
+        
+        playerTargetRotation.x += transform.eulerAngles.x + lookSenseH + playerInput.LookInput.x;
+        transform.rotation = Quaternion.Euler(0f,playerTargetRotation.x,0f);
+
+        playerCamera.transform.rotation = Quaternion.Euler(cameraRotation.y,cameraRotation.x,0f);
+
     }
 }
