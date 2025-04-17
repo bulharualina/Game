@@ -7,6 +7,7 @@ using UnityEngine.InputSystem.XR;
 [DefaultExecutionOrder(-1)]
 public class PlayerController : MonoBehaviour
 {
+    #region Class Variables
     [Header("Components")]
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Camera playerCamera;
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public float runSpeed = 12f;
     public float gravity = -9.81f * 2;
     public float jumpHeight = 3f;
+    public float movingThreshold = 0.01f;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
@@ -30,14 +32,37 @@ public class PlayerController : MonoBehaviour
     public float lookLimitV = 89f;
     
     private PlayerInput playerInput;
+    private PlayerState playerState;
+
     private Vector2 cameraRotation = Vector2.zero;
     private Vector2 playerTargetRotation = Vector2.zero;
+
+    #endregion
+
+    #region Startup
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
+        playerState = GetComponent<PlayerState>();
+    }
+    #endregion
+
+    #region Update
+    private void Update()
+    {
+        UpdateMovementState();
+        UpdateLateralMovement();
     }
 
-    private void Update()
+    private void UpdateMovementState() 
+    {
+        bool isMovementInput = playerInput.MovementInput != Vector2.zero;
+        bool isMovingLaterally = IsMovingLaterally();
+
+        PlayerMovementState lateralState = isMovingLaterally || isMovementInput ? PlayerMovementState.Running : PlayerMovementState.Idling;
+        playerState.SetPlayerMovementState(lateralState);
+    }
+    private void UpdateLateralMovement() 
     {
         //checking if we hit the ground to reset our falling velocity, otherwise we will fall faster the next time
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -65,17 +90,31 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         characterController.Move(velocity * Time.deltaTime);
-    }
 
+    }
+    #endregion
+
+    #region Late Update
     private void LateUpdate()
     {
         cameraRotation.x += lookSenseH * playerInput.LookInput.x;
         cameraRotation.y = Mathf.Clamp(cameraRotation.y - lookSenseV * playerInput.LookInput.y, -lookLimitV,lookLimitV);
         
-        playerTargetRotation.x += transform.eulerAngles.x + lookSenseH + playerInput.LookInput.x;
+        playerTargetRotation.x +=  lookSenseH * playerInput.LookInput.x;
         transform.rotation = Quaternion.Euler(0f,playerTargetRotation.x,0f);
 
         playerCamera.transform.rotation = Quaternion.Euler(cameraRotation.y,cameraRotation.x,0f);
 
     }
+    #endregion
+
+    #region State Checks
+
+    private bool IsMovingLaterally() 
+    {
+        Vector3 lateralVelocity = new Vector3(characterController.velocity.x, 0f, characterController.velocity.y);
+
+        return lateralVelocity.magnitude> movingThreshold;
+    }
+    #endregion
 }

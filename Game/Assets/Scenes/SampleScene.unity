@@ -696,6 +696,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1946980923}
+  blendSpeed: 4
 --- !u!1001 &1231814017108805413
 PrefabInstance:
   m_ObjectHideFlags: 0
