@@ -18,6 +18,7 @@ public enum PlayerMovementState
     Idling = 0,
     Walking = 1,
     Running = 2,
-    Strafing = 3,
+    Sprinting = 3,
+    Strafing = 4,
 
 }

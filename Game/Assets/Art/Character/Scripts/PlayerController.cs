@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Camera playerCamera;
 
     [Header("Base Movement")]
-    public float runSpeed = 12f;
+    public float runSpeed = 4f;
+    public float sprintSpeed = 7f;
     public float gravity = -9.81f * 2;
     public float jumpHeight = 3f;
     public float movingThreshold = 0.01f;
@@ -23,6 +24,10 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundMask;
 
     Vector3 velocity;
+
+    private Vector3 lastPosition;
+    private Vector3 calculatedVelocity;
+
     bool isGrounded;
 
 
@@ -58,27 +63,39 @@ public class PlayerController : MonoBehaviour
     {
         bool isMovementInput = playerInput.MovementInput != Vector2.zero;
         bool isMovingLaterally = IsMovingLaterally();
+        bool isSprinting = playerInput.SwitchSprintOn && isMovingLaterally;
+        //print($"Sprinting: {playerInput.SwitchSprintOn}, Lateral: {IsMovingLaterally()}");
 
-        PlayerMovementState lateralState = isMovingLaterally || isMovementInput ? PlayerMovementState.Running : PlayerMovementState.Idling;
+
+        PlayerMovementState lateralState =  isSprinting ? PlayerMovementState.Sprinting :
+                                            isMovingLaterally || isMovementInput ? PlayerMovementState.Running : PlayerMovementState.Idling;
         playerState.SetPlayerMovementState(lateralState);
     }
     private void UpdateLateralMovement() 
     {
         //checking if we hit the ground to reset our falling velocity, otherwise we will fall faster the next time
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        bool isSprinting = playerState.CurrentPlayerMovementState == PlayerMovementState.Sprinting;
+
+        calculatedVelocity = (transform.position - lastPosition) / Time.deltaTime;
+        lastPosition = transform.position;
 
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        //float x = Input.GetAxis("Horizontal");
+        //float z = Input.GetAxis("Vertical");
+
+        Vector2 moveInput = playerInput.MovementInput;
 
         //right is the red Axis, foward is the blue axis
-        Vector3 move = transform.right * x + transform.forward * z;
+        Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
+        float currentSpeed = isSprinting ? sprintSpeed : runSpeed;
+        print(currentSpeed);
 
-        characterController.Move(move * runSpeed * Time.deltaTime);
+        characterController.Move(move * currentSpeed * Time.deltaTime);
 
         //check if the player is on the ground so he can jump
         if (Input.GetButtonDown("Jump") && isGrounded)
@@ -112,9 +129,9 @@ public class PlayerController : MonoBehaviour
 
     private bool IsMovingLaterally() 
     {
-        Vector3 lateralVelocity = new Vector3(characterController.velocity.x, 0f, characterController.velocity.y);
+        Vector3 lateralVelocity = new Vector3(calculatedVelocity.x, 0f, calculatedVelocity.z);
 
-        return lateralVelocity.magnitude> movingThreshold;
+        return lateralVelocity.magnitude > movingThreshold;
     }
     #endregion
 }

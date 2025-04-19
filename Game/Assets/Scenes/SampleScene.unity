@@ -710,6 +710,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character_Women_3RD
       objectReference: {fileID: 0}
+    - target: {fileID: 2087065024447505535, guid: 55873a73fccbdf14586f4d879e560332,
+        type: 3}
+      propertyPath: runSpeed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3294795251714714478, guid: 55873a73fccbdf14586f4d879e560332,
         type: 3}
       propertyPath: m_LocalPosition.x
