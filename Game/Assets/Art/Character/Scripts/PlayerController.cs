@@ -12,24 +12,29 @@ public class PlayerController : MonoBehaviour
     [Header("Components")]
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Camera playerCamera;
+    public float RotationMismatch { get; private set; } = 0f;
+    public bool IsRotatingToTarget { get; private set; } = false;
 
     [Header("Base Movement")]
-    public float runSpeed = 4f;
-    public float sprintSpeed = 7f;
+    public float walkSpeed = 3f;
+    public float runSpeed = 5f;
+    public float sprintSpeed = 9f;
     public float gravity = -9.81f * 2;
     public float jumpHeight = 1f;
     public float movingThreshold = 0.01f;
-
-    public Transform groundCheck;
-    public float groundDistance = 0.4f;
-    public LayerMask groundMask;
-
     Vector3 velocity;
 
     private Vector3 lastPosition;
     private Vector3 calculatedVelocity;
 
+    [Header("Animation")]
+    public float playerModelRotationSpeed = 10f;
+    public float rotateToTargetTime = 0.67f;
 
+    [Header("Ground")]
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    public LayerMask groundMask;
 
 
     [Header("Camera Settings")]
@@ -42,6 +47,9 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 cameraRotation = Vector2.zero;
     private Vector2 playerTargetRotation = Vector2.zero;
+
+    private bool isRotatingClockwise = false;
+    private float rotatingToTargetTimer = 0f;
 
     #endregion
 
@@ -78,15 +86,17 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateMovementState() 
     {
+        bool canRun = CanRun();
         bool isMovementInput = playerInput.MovementInput != Vector2.zero;
         bool isMovingLaterally = IsMovingLaterally();
         bool isSprinting = playerInput.SwitchSprintOn && isMovingLaterally;
         bool isGrounded = IsGrounded();
-
+        bool isWalking = (isMovingLaterally && !canRun) || playerInput.SwitchWalkOn;
 
         if (isGrounded)
         {
-            PlayerMovementState lateralState = isSprinting ? PlayerMovementState.Sprinting :
+            PlayerMovementState lateralState = isWalking? PlayerMovementState.Walking :
+                                               isSprinting ? PlayerMovementState.Sprinting :
                                                isMovingLaterally || isMovementInput ? PlayerMovementState.Running : PlayerMovementState.Idling;
             playerState.SetPlayerMovementState(lateralState);
 
@@ -111,7 +121,7 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateLateralMovement() 
     {
-       
+        bool isWalking = playerState.CurrentPlayerMovementState == PlayerMovementState.Walking;
         bool isSprinting = playerState.CurrentPlayerMovementState == PlayerMovementState.Sprinting;
 
         calculatedVelocity = (transform.position - lastPosition) / Time.deltaTime;
@@ -121,7 +131,7 @@ public class PlayerController : MonoBehaviour
 
         //right is the red Axis, foward is the blue axis
         Vector3 move = transform.right * moveInput.x + transform.forward * moveInput.y;
-        float currentSpeed = isSprinting ? sprintSpeed : runSpeed;
+        float currentSpeed = isWalking? walkSpeed : isSprinting ? sprintSpeed : runSpeed;
         
 
         characterController.Move(move * currentSpeed * Time.deltaTime);
@@ -133,14 +143,63 @@ public class PlayerController : MonoBehaviour
     #region Late Update
     private void LateUpdate()
     {
+        UpdateCameraRotation();
+
+    }
+
+    private void UpdateCameraRotation()
+    {
         cameraRotation.x += lookSenseH * playerInput.LookInput.x;
-        cameraRotation.y = Mathf.Clamp(cameraRotation.y - lookSenseV * playerInput.LookInput.y, -lookLimitV,lookLimitV);
-        
-        playerTargetRotation.x +=  lookSenseH * playerInput.LookInput.x;
-        transform.rotation = Quaternion.Euler(0f,playerTargetRotation.x,0f);
+        cameraRotation.y = Mathf.Clamp(cameraRotation.y - lookSenseV * playerInput.LookInput.y, -lookLimitV, lookLimitV);
 
-        playerCamera.transform.rotation = Quaternion.Euler(cameraRotation.y,cameraRotation.x,0f);
+        playerTargetRotation.x += transform.eulerAngles.x + lookSenseH * playerInput.LookInput.x;
 
+        float rotationTolerance = 90f;
+        bool isIdling = playerState.CurrentPlayerMovementState == PlayerMovementState.Idling;
+        IsRotatingToTarget = rotatingToTargetTimer > 0;
+
+        // ROTATE if we're not idling
+        if (!isIdling)
+        {
+            RotatePlayerToTarget();
+        }
+        // If rotation mismatch not within tolerance, or rotate to target is active, ROTATE
+        else if (Mathf.Abs(RotationMismatch) > rotationTolerance || IsRotatingToTarget)
+        {
+            UpdateIdleRotation(rotationTolerance);
+        }
+
+        playerCamera.transform.rotation = Quaternion.Euler(cameraRotation.y, cameraRotation.x, 0f);
+
+        // Get angle between camera and player
+        Vector3 camForwardProjectedXZ = new Vector3(playerCamera.transform.forward.x, 0f, playerCamera.transform.forward.z).normalized;
+        Vector3 crossProduct = Vector3.Cross(transform.forward, camForwardProjectedXZ);
+        float sign = Mathf.Sign(Vector3.Dot(crossProduct, transform.up));
+        RotationMismatch = sign * Vector3.Angle(transform.forward, camForwardProjectedXZ);
+    }
+
+    private void UpdateIdleRotation(float rotationTolerance)
+    {
+        // Initiate new rotation direction
+        if (Mathf.Abs(RotationMismatch) > rotationTolerance)
+        {
+            rotatingToTargetTimer = rotateToTargetTime;
+            isRotatingClockwise = RotationMismatch > rotationTolerance;
+        }
+        rotatingToTargetTimer -= Time.deltaTime;
+
+        // Rotate player
+        if (isRotatingClockwise && RotationMismatch > 0f ||
+            !isRotatingClockwise && RotationMismatch < 0f)
+        {
+            RotatePlayerToTarget();
+        }
+    }
+
+    private void RotatePlayerToTarget()
+    {
+        Quaternion targetRotationX = Quaternion.Euler(0f, playerTargetRotation.x, 0f);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotationX, playerModelRotationSpeed * Time.deltaTime);
     }
     #endregion
 
@@ -156,6 +215,11 @@ public class PlayerController : MonoBehaviour
     private bool IsGrounded()
     {
        return Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+    }
+
+    private bool CanRun() 
+    {
+        return playerInput.MovementInput.y >= Mathf.Abs(playerInput.MovementInput.x);
     }
     #endregion
 }

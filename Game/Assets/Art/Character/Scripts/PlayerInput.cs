@@ -8,13 +8,12 @@ public class PlayerInput : MonoBehaviour, PlayerControls.IPlayerActions
 {
     #region Class Variables
     [SerializeField] private bool holdToSprint = true;
-
-    public bool SwitchSprintOn { get; private set; }
-
     public PlayerControls PlayerControls { get; private set; }
     public Vector2 MovementInput { get; private set; }
     public Vector2 LookInput { get; private set; }
 
+    public bool SwitchSprintOn { get; private set; }
+    public bool SwitchWalkOn { get; private set; }
     public bool JumpPressed { get; private set; }
 
     #endregion
@@ -78,6 +77,16 @@ public class PlayerInput : MonoBehaviour, PlayerControls.IPlayerActions
         }
 
         JumpPressed = true;
+    }
+
+    public void OnWalkSwitch(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+        {
+            return;
+        }
+
+        SwitchWalkOn = !SwitchWalkOn;
     }
     #endregion
 }

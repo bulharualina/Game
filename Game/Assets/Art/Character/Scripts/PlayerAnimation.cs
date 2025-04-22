@@ -10,6 +10,7 @@ public class PlayerAnimation : MonoBehaviour
 
     private PlayerInput playerInput;
     private PlayerState playerState;
+    private PlayerController playerController;
 
     private static int inputXHash = Animator.StringToHash("inputX");
     private static int inputYHash = Animator.StringToHash("inputY");
@@ -17,6 +18,9 @@ public class PlayerAnimation : MonoBehaviour
     private static int isGroundedHash = Animator.StringToHash("isGrounded");
     private static int isJumpingHash = Animator.StringToHash("isJumping");
     private static int isFallingHash = Animator.StringToHash("isFalling");
+    private static int isIdlingHash = Animator.StringToHash("isIdling");
+    private static int isRotatingToTargetHash = Animator.StringToHash("isRotatingToTarget");
+    private static int rotationMismatchHash = Animator.StringToHash("rotationMismatch");
 
     private Vector3 currentBlendInput = Vector3.zero;
 
@@ -25,6 +29,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         playerState = GetComponent<PlayerState>();
+        playerController = GetComponent<PlayerController>();
     }
 
     private void Update()
@@ -42,15 +47,21 @@ public class PlayerAnimation : MonoBehaviour
         bool isFalling = playerState.CurrentPlayerMovementState == PlayerMovementState.Falling;
 
 
-        Vector2 inputTarget = isSprinting ? playerInput.MovementInput * 1.5f : playerInput.MovementInput;
+        Vector2 inputTarget = isSprinting ? playerInput.MovementInput * 1.5f :
+                                isRunning? playerInput.MovementInput * 1f : playerInput.MovementInput * 0.5f;
         currentBlendInput = Vector3.Lerp(currentBlendInput, inputTarget, blendSpeed * Time.deltaTime);
 
 
         animator.SetBool(isGroundedHash,isGrounded);
         animator.SetBool(isJumpingHash,isJumping);
         animator.SetBool(isFallingHash,isFalling);
+        animator.SetBool(isIdlingHash, isIdling);
+        animator.SetBool(isRotatingToTargetHash, playerController.IsRotatingToTarget);
+        
         animator.SetFloat(inputXHash, currentBlendInput.x);
         animator.SetFloat (inputYHash, currentBlendInput.y);
         animator.SetFloat(inputMagnitudeHash, currentBlendInput.magnitude);
+        animator.SetFloat(rotationMismatchHash, playerController.RotationMismatch);
+
     }
 }
