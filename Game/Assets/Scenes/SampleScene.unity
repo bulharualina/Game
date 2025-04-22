@@ -468,7 +468,7 @@ GameObject:
   - component: {fileID: 1233646348}
   - component: {fileID: 1233646347}
   - component: {fileID: 1233646346}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -714,6 +714,16 @@ PrefabInstance:
         type: 3}
       propertyPath: runSpeed
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2087065024447505535, guid: 55873a73fccbdf14586f4d879e560332,
+        type: 3}
+      propertyPath: jumpHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2087065024447505535, guid: 55873a73fccbdf14586f4d879e560332,
+        type: 3}
+      propertyPath: groundMask.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 3294795251714714478, guid: 55873a73fccbdf14586f4d879e560332,
         type: 3}
