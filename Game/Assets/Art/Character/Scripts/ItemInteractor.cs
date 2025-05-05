@@ -15,34 +15,52 @@ public class ItemInteractor : MonoBehaviour
     [SerializeField]
     private GameObject pickUpUI;
 
- 
+
     [SerializeField]
     [Min(1)]
     private float hitRange = 3;
 
     private RaycastHit hit;
 
-
+    private List<GameObject> inventory = new List<GameObject>();
     private void Update()
     {
-        Debug.DrawRay(playerCameraTransform.position, playerCameraTransform.forward * hitRange, Color.red);
-        if (hit.collider != null)
+        //Debug.DrawRay(playerCameraTransform.position, playerCameraTransform.forward * hitRange, Color.red);
+        if (hit.collider != null) 
         {
-            hit.collider.GetComponent<Highlight>()?.ToggleHighlight(false);
-            pickUpUI.SetActive(false);
+            pickUpUI?.SetActive(false);
+
         }
-
-
-        if (Physics.Raycast(
+            if (Physics.Raycast(
             playerCameraTransform.position,
             playerCameraTransform.forward,
             out hit,
             hitRange,
             pickableLayerMask))
         {
-            hit.collider.GetComponent<Highlight>()?.ToggleHighlight(true);
+
             pickUpUI.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                PickUpItem(hit.collider.gameObject);
+            }
+          
 
         }
+
+        
+
+
+    }
+    private void PickUpItem(GameObject item)
+    {
+        inventory.Add(item); // Add item to inventory list
+        Debug.Log("Picked up: " + item.name);
+
+        pickUpUI?.SetActive(false);
+
+        Destroy(item); // Remove item from the world
     }
 }
+
+   

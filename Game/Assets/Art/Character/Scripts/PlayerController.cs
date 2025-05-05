@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
     private void UpdateVerticalMovement()
     {
         bool isGrounded = IsGrounded();
-        Debug.Log("isGrounded: " + isGrounded + ", velocity.y: " + velocity.y);
+       
         if (isGrounded && velocity.y < 0f ) {
             velocity.y = -2f;
         }
