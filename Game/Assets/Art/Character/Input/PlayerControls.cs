@@ -229,6 +229,34 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Player3RD"",
+            ""id"": ""1db482c8-3f9f-4940-8539-fabb6711f0f1"",
+            ""actions"": [
+                {
+                    ""name"": ""Scroll Camera"",
+                    ""type"": ""Value"",
+                    ""id"": ""49433c3e-8270-4690-af5d-8ea6acdb7d6b"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""7e0133e0-f1fa-458b-b522-13936f0aa00f"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Scroll Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -240,6 +268,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_SprintSwitch = m_Player.FindAction("SprintSwitch", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_WalkSwitch = m_Player.FindAction("WalkSwitch", throwIfNotFound: true);
+        // Player3RD
+        m_Player3RD = asset.FindActionMap("Player3RD", throwIfNotFound: true);
+        m_Player3RD_ScrollCamera = m_Player3RD.FindAction("Scroll Camera", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -375,6 +406,52 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Player3RD
+    private readonly InputActionMap m_Player3RD;
+    private List<IPlayer3RDActions> m_Player3RDActionsCallbackInterfaces = new List<IPlayer3RDActions>();
+    private readonly InputAction m_Player3RD_ScrollCamera;
+    public struct Player3RDActions
+    {
+        private @PlayerControls m_Wrapper;
+        public Player3RDActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ScrollCamera => m_Wrapper.m_Player3RD_ScrollCamera;
+        public InputActionMap Get() { return m_Wrapper.m_Player3RD; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(Player3RDActions set) { return set.Get(); }
+        public void AddCallbacks(IPlayer3RDActions instance)
+        {
+            if (instance == null || m_Wrapper.m_Player3RDActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_Player3RDActionsCallbackInterfaces.Add(instance);
+            @ScrollCamera.started += instance.OnScrollCamera;
+            @ScrollCamera.performed += instance.OnScrollCamera;
+            @ScrollCamera.canceled += instance.OnScrollCamera;
+        }
+
+        private void UnregisterCallbacks(IPlayer3RDActions instance)
+        {
+            @ScrollCamera.started -= instance.OnScrollCamera;
+            @ScrollCamera.performed -= instance.OnScrollCamera;
+            @ScrollCamera.canceled -= instance.OnScrollCamera;
+        }
+
+        public void RemoveCallbacks(IPlayer3RDActions instance)
+        {
+            if (m_Wrapper.m_Player3RDActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IPlayer3RDActions instance)
+        {
+            foreach (var item in m_Wrapper.m_Player3RDActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_Player3RDActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public Player3RDActions @Player3RD => new Player3RDActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -382,5 +459,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSprintSwitch(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnWalkSwitch(InputAction.CallbackContext context);
+    }
+    public interface IPlayer3RDActions
+    {
+        void OnScrollCamera(InputAction.CallbackContext context);
     }
 }

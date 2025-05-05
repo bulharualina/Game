@@ -207,6 +207,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Player3RD",
+            "id": "1db482c8-3f9f-4940-8539-fabb6711f0f1",
+            "actions": [
+                {
+                    "name": "Scroll Camera",
+                    "type": "Value",
+                    "id": "49433c3e-8270-4690-af5d-8ea6acdb7d6b",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7e0133e0-f1fa-458b-b522-13936f0aa00f",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Scroll Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

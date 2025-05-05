@@ -8,7 +8,6 @@ public class PlayerInput : MonoBehaviour, PlayerControls.IPlayerActions
 {
     #region Class Variables
     [SerializeField] private bool holdToSprint = true;
-    public PlayerControls PlayerControls { get; private set; }
     public Vector2 MovementInput { get; private set; }
     public Vector2 LookInput { get; private set; }
 
@@ -21,17 +20,26 @@ public class PlayerInput : MonoBehaviour, PlayerControls.IPlayerActions
     #region StartUp
     private void OnEnable()
     {
-        PlayerControls = new PlayerControls();
-        PlayerControls.Enable();
+        if (PlayerInputManager.Instance?.PlayerControls == null)
+        {
+            Debug.LogError("Player controls is not initialized - cannot enable");
+            return;
+        }
 
-        PlayerControls.Player.Enable();
-        PlayerControls.Player.SetCallbacks(this);
+        PlayerInputManager.Instance.PlayerControls.Player.Enable();
+        PlayerInputManager.Instance.PlayerControls.Player.SetCallbacks(this);
     }
 
     private void OnDisable()
     {
-        PlayerControls.Player.Disable();
-        PlayerControls.Player.RemoveCallbacks(this);
+        if (PlayerInputManager.Instance?.PlayerControls == null)
+        {
+            Debug.LogError("Player controls is not initialized - cannot disable");
+            return;
+        }
+
+        PlayerInputManager.Instance.PlayerControls.Player.Disable();
+        PlayerInputManager.Instance.PlayerControls.Player.RemoveCallbacks(this);
     }
     #endregion
 
