@@ -22,7 +22,7 @@ public class ItemInteractor : MonoBehaviour
 
     private RaycastHit hit;
 
-    private List<GameObject> inventory = new List<GameObject>();
+    
     private void Update()
     {
         //Debug.DrawRay(playerCameraTransform.position, playerCameraTransform.forward * hitRange, Color.red);
@@ -31,35 +31,33 @@ public class ItemInteractor : MonoBehaviour
             pickUpUI?.SetActive(false);
 
         }
-            if (Physics.Raycast(
-            playerCameraTransform.position,
-            playerCameraTransform.forward,
-            out hit,
-            hitRange,
-            pickableLayerMask))
-        {
-
-            pickUpUI.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, hitRange,pickableLayerMask))
             {
-                PickUpItem(hit.collider.gameObject);
+
+                pickUpUI.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    PickUpItem(hit.collider.gameObject);
+                }
             }
-          
-
-        }
-
-        
-
 
     }
     private void PickUpItem(GameObject item)
     {
-        inventory.Add(item); // Add item to inventory list
-        Debug.Log("Picked up: " + item.name);
 
-        pickUpUI?.SetActive(false);
+        if (!InventorySystem.Instance.CheckIfInventoryFull())
+        {
+            string cleanName = item.name.Replace("(Clone)", "").Trim();
+            InventorySystem.Instance.AddToInventory(cleanName);
 
-        Destroy(item); // Remove item from the world
+            pickUpUI?.SetActive(false);
+
+            Destroy(item);
+
+        }
+        else {
+            Debug.Log("Inventory is FULL");
+        }
     }
 }
 
