@@ -70,14 +70,25 @@ public class InventorySystem : MonoBehaviour
     }
 
 
-    public void AddToInventory(string itemName)
+    public void AddToInventory(PickableItem pickable)
     {
          _slotToEquip = FindNextEmptySlot();
 
-            _itemToAdd = (GameObject)Instantiate(Resources.Load<GameObject>(itemName), _slotToEquip.transform.position, _slotToEquip.transform.rotation);
-            _itemToAdd.transform.SetParent(_slotToEquip.transform);
+        //_itemToAdd = (GameObject)Instantiate(Resources.Load<GameObject>(itemName), _slotToEquip.transform.position, _slotToEquip.transform.rotation);
+        GameObject prefabToLoad = Resources.Load<GameObject>(pickable.UIPrefabName);
+        if (prefabToLoad == null)
+        {
+            Debug.LogError($"UI prefab '{pickable.UIPrefabName}Icon' not found in Resources.");
+            return;
+        }
 
-            itemList.Add(itemName);
+        _itemToAdd = Instantiate(prefabToLoad, _slotToEquip.transform);
+        _itemToAdd.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        _itemToAdd.GetComponent<RectTransform>().localScale = Vector3.one;
+
+        _itemToAdd.transform.SetParent(_slotToEquip.transform);
+
+         itemList.Add(pickable.ItemName);
         
 
 

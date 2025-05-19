@@ -31,24 +31,33 @@ public class ItemInteractor : MonoBehaviour
             pickUpUI?.SetActive(false);
 
         }
-            if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, hitRange,pickableLayerMask))
-            {
+        if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, hitRange, pickableLayerMask))
+        {
 
-                pickUpUI.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    PickUpItem(hit.collider.gameObject);
-                }
+            pickUpUI.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                PickUpItem(hit.collider.gameObject);
             }
+        }
+        else 
+        {
+            //pickUpUI.SetActive(false);
+        }
 
     }
     private void PickUpItem(GameObject item)
     {
+        PickableItem pickable = item.GetComponent<PickableItem>();
 
+        if (pickable == null)
+        {
+            Debug.LogError("Picked item doesn't have PickableItem script attached.");
+            return;
+        }
         if (!InventorySystem.Instance.CheckIfInventoryFull())
         {
-            string cleanName = item.name.Replace("(Clone)", "").Trim();
-            InventorySystem.Instance.AddToInventory(cleanName);
+            InventorySystem.Instance.AddToInventory(pickable);
 
             pickUpUI?.SetActive(false);
 
