@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventorySystem : MonoBehaviour
 {
@@ -17,7 +19,10 @@ public class InventorySystem : MonoBehaviour
     private GameObject _slotToEquip;
     public bool isOpen;
 
-
+    //pickup PopUp
+    public GameObject pickupPopUp;
+    public TextMeshProUGUI pickupName;
+    public Image pickupImage; 
 
 
     private void Awake()
@@ -69,6 +74,8 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
+    ///Cand fac crafting am 3 pietre si 3 bete am apasat butonul => a facut crafting si a sters item din inventar dar tot am amai putut sa fac inca un topor ?? E ceva legat de  astea ReCalculateList();
+   // CraftingSystem.Instance.RefreshNeededItems();
 
     public void AddToInventory(string itemName)
     {
@@ -80,9 +87,20 @@ public class InventorySystem : MonoBehaviour
         _itemToAdd.transform.SetParent(_slotToEquip.transform);
 
          itemList.Add(itemName);
-        
 
+        ShowPickupPopup(itemName, _itemToAdd.GetComponent<Image>().sprite);
 
+        ReCalculateList();
+        CraftingSystem.Instance.RefreshNeededItems();
+    }
+
+    void ShowPickupPopup(string itemName, Sprite itemSprite) 
+    { 
+        pickupPopUp.SetActive(true);
+
+        pickupName.text = itemName;
+        pickupImage.sprite = itemSprite;
+    
     }
 
     private GameObject FindNextEmptySlot()
@@ -138,7 +156,8 @@ public class InventorySystem : MonoBehaviour
             }
            
         }
-
+        ReCalculateList();
+        CraftingSystem.Instance.RefreshNeededItems();
     }
 
     public void ReCalculateList() 
