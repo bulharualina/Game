@@ -70,15 +70,16 @@ public class InventorySystem : MonoBehaviour
     }
 
 
-    public void AddToInventory(PickableItem pickable)
+    public void AddToInventory(string itemName)
     {
          _slotToEquip = FindNextEmptySlot();
 
         //_itemToAdd = (GameObject)Instantiate(Resources.Load<GameObject>(itemName), _slotToEquip.transform.position, _slotToEquip.transform.rotation);
-        GameObject prefabToLoad = Resources.Load<GameObject>(pickable.UIPrefabName);
+        string uiPrefabName = itemName + "Icon";
+        GameObject prefabToLoad = Resources.Load<GameObject>(uiPrefabName);
         if (prefabToLoad == null)
         {
-            Debug.LogError($"UI prefab '{pickable.UIPrefabName}Icon' not found in Resources.");
+            Debug.LogError($"UI prefab '{uiPrefabName}Icon' not found in Resources.");
             return;
         }
 
@@ -88,7 +89,7 @@ public class InventorySystem : MonoBehaviour
 
         _itemToAdd.transform.SetParent(_slotToEquip.transform);
 
-         itemList.Add(pickable.ItemName);
+         itemList.Add(itemName);
         
 
 
@@ -129,5 +130,43 @@ public class InventorySystem : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void RemoveItem(string nameToRemove, int amountToRemove) 
+    { 
+        int counter = amountToRemove;
+
+        for (var i = slotList.Count-1; i>= 0;  i--)
+        {
+            if (slotList[i].transform.childCount > 0)
+            {
+                if (slotList[i].transform.GetChild(0).name == nameToRemove + "(Clone)" && counter != 0)
+                {
+                    Destroy(slotList[i].transform.GetChild(0).gameObject);
+                    counter -= 1;
+                }
+            }
+           
+        }
+
+    }
+
+    public void ReCalculateList() 
+    { 
+        itemList.Clear();
+
+        foreach (GameObject slot in slotList)
+        {
+            if (slot.transform.childCount > 0) 
+            { 
+                string name = slot.transform.GetChild(0).name;
+                string strToRemove = "(Clone)";
+                string res = name.Replace(strToRemove, "");
+                
+                itemList.Add(res);
+            }
+        }
+
+
     }
 }
