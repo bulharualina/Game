@@ -5,7 +5,7 @@ using UnityEngine;
 public class PickableItem : MonoBehaviour
 {
     [SerializeField] private string _itemName;
-    [SerializeField] private string _uiPrefabName;
+  
 
 
     public string ItemName
@@ -13,8 +13,5 @@ public class PickableItem : MonoBehaviour
         get { return _itemName; }
     }
 
-    public string UIPrefabName
-    {
-        get { return _uiPrefabName; }
-    }
+  
 }

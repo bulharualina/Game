@@ -74,18 +74,8 @@ public class InventorySystem : MonoBehaviour
     {
          _slotToEquip = FindNextEmptySlot();
 
-        //_itemToAdd = (GameObject)Instantiate(Resources.Load<GameObject>(itemName), _slotToEquip.transform.position, _slotToEquip.transform.rotation);
-        string uiPrefabName = itemName + "Icon";
-        GameObject prefabToLoad = Resources.Load<GameObject>(uiPrefabName);
-        if (prefabToLoad == null)
-        {
-            Debug.LogError($"UI prefab '{uiPrefabName}Icon' not found in Resources.");
-            return;
-        }
-
-        _itemToAdd = Instantiate(prefabToLoad, _slotToEquip.transform);
-        _itemToAdd.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        _itemToAdd.GetComponent<RectTransform>().localScale = Vector3.one;
+        _itemToAdd = (GameObject)Instantiate(Resources.Load<GameObject>(itemName), _slotToEquip.transform.position, _slotToEquip.transform.rotation);
+       
 
         _itemToAdd.transform.SetParent(_slotToEquip.transform);
 

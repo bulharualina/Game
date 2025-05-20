@@ -40,10 +40,7 @@ public class ItemInteractor : MonoBehaviour
                 PickUpItem(hit.collider.gameObject);
             }
         }
-        else 
-        {
-            //pickUpUI.SetActive(false);
-        }
+       
 
     }
     private void PickUpItem(GameObject item)
