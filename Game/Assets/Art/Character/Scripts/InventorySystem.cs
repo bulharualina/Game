@@ -74,9 +74,6 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
-    ///Cand fac crafting am 3 pietre si 3 bete am apasat butonul => a facut crafting si a sters item din inventar dar tot am amai putut sa fac inca un topor ?? E ceva legat de  astea ReCalculateList();
-   // CraftingSystem.Instance.RefreshNeededItems();
-
     public void AddToInventory(string itemName)
     {
          _slotToEquip = FindNextEmptySlot();
@@ -100,9 +97,15 @@ public class InventorySystem : MonoBehaviour
 
         pickupName.text = itemName;
         pickupImage.sprite = itemSprite;
-    
-    }
 
+        StartCoroutine(HidePickupPopupAfterDelay(2f));
+
+    }
+    IEnumerator HidePickupPopupAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        pickupPopUp.SetActive(false);
+    }
     private GameObject FindNextEmptySlot()
     {
         foreach (GameObject slot in slotList)
@@ -156,6 +159,12 @@ public class InventorySystem : MonoBehaviour
             }
            
         }
+
+        StartCoroutine(DelayedRecalculate());
+    }
+    private IEnumerator DelayedRecalculate()
+    {
+        yield return new WaitForSeconds(0.1f);
         ReCalculateList();
         CraftingSystem.Instance.RefreshNeededItems();
     }

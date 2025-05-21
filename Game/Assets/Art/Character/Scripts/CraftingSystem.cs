@@ -69,20 +69,9 @@ public class CraftingSystem : MonoBehaviour
             InventorySystem.Instance.RemoveItem(blpToCraft.Req1, blpToCraft.Req1amount);
             InventorySystem.Instance.RemoveItem(blpToCraft.Req2, blpToCraft.Req2amount);
         }
-
-
-        StartCoroutine(calculate());
-
-        
-
-        RefreshNeededItems();
     }
 
-    public IEnumerator calculate()
-    {
-        yield return new WaitForSeconds(1f);
-        InventorySystem.Instance.ReCalculateList();
-    }
+ 
    
 
     void OpenToolsCategory() 
