@@ -26,6 +26,11 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public float caloriesEffect;
     public float hydrationEffect;
 
+    // --- Equipping --- //
+    public bool isEquippable;
+    private GameObject _itemPendingEquipping;
+    public bool isInsideQuickSlot;//is in slot
+    public bool isSelected;//item  selected
 
     private void Awake()
     {
@@ -49,6 +54,19 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (_itemInfoUI_itemName == null) Debug.LogError("itemName TextMeshProUGUI not found on ItemInfoUI child!", _itemInfoUI);
         if (_itemInfoUI_itemDescription == null) Debug.LogError("itemDescription TextMeshProUGUI not found on ItemInfoUI child!", _itemInfoUI);
         if (_itemInfoUI_itemFunctionality == null) Debug.LogError("itemFunctionality TextMeshProUGUI not found on ItemInfoUI child!", _itemInfoUI);
+    }
+
+    void Update() 
+    {
+        if (isSelected)
+        {
+            gameObject.GetComponent<DragDrop>().enabled = false;
+        }
+        else 
+        { 
+            gameObject.gameObject.GetComponent<DragDrop>().enabled = true;
+        }
+    
     }
 
     // Triggered when the mouse enters into the area of the item that has this script.
@@ -83,7 +101,15 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 _itemPendingConsumption = gameObject;
                 consumingFunction(healthEffect, caloriesEffect, hydrationEffect);
             }
+
+            if (isEquippable && !isInsideQuickSlot && !EquipSystem.Instance.CheckIfFull())
+            {
+                EquipSystem.Instance.AddToQuickSlots(gameObject);
+                isInsideQuickSlot = true;
+
+            }
         }
+
     }
 
     // Triggered when the mouse button is released over the item that has this script.
