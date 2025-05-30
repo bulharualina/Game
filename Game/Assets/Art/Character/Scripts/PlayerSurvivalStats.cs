@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -73,7 +74,13 @@ public class PlayerSurvivalStats : MonoBehaviour
         }
     }
 
-
-
-
+    public void setHealth(float newHealth) { 
+        currentHealth = newHealth;
+    }
+    public void setCalories(float newCalories) {
+            currentCalories = newCalories;
+    }
+    public void setHydration(float newHydration) { 
+    currentHydrationPercent = newHydration;
+    }
 }

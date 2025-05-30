@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5572939143096813768}
   - component: {fileID: 8274464696642026292}
   - component: {fileID: 4615460531349330343}
+  - component: {fileID: -760705522744780644}
   m_Layer: 5
   m_Name: Axe
   m_TagString: Untagged
@@ -101,3 +102,23 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &-760705522744780644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2823910934978139464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69f4c289d9622a14a9b97086a8932e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTrashable: 0
+  thisName: Axe
+  thisDescription: Sharp steel on sturdy wood, a weighty, balanced felling tool.
+  thisFunctionality: Fells trees, splits wood, delivers heavy blows.
+  isConsumable: 0
+  healthEffect: 0
+  caloriesEffect: 0
+  hydrationEffect: 0

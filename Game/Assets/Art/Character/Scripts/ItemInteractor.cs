@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 using UnityEngine.InputSystem;
 
 public class ItemInteractor : MonoBehaviour
@@ -26,11 +25,7 @@ public class ItemInteractor : MonoBehaviour
     private void Update()
     {
         //Debug.DrawRay(playerCameraTransform.position, playerCameraTransform.forward * hitRange, Color.red);
-        if (hit.collider != null) 
-        {
-            pickUpUI?.SetActive(false);
 
-        }
         if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, hitRange, pickableLayerMask))
         {
 
@@ -38,6 +33,13 @@ public class ItemInteractor : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 PickUpItem(hit.collider.gameObject);
+            }
+        }
+        else {
+            if (pickUpUI != null && pickUpUI.activeSelf)
+            {
+                pickUpUI?.SetActive(false);
+
             }
         }
        
@@ -49,15 +51,17 @@ public class ItemInteractor : MonoBehaviour
 
         if (pickable == null)
         {
-            Debug.LogError("Picked item doesn't have PickableItem script attached.");
+            Debug.LogError("Picked item '" +item.name+"' doesn't have PickableItem script attached.");
             return;
         }
         if (!InventorySystem.Instance.CheckIfInventoryFull())
         {
             InventorySystem.Instance.AddToInventory(pickable.ItemName);
 
-            pickUpUI?.SetActive(false);
-
+            if (pickUpUI != null)
+            {
+                pickUpUI?.SetActive(false);
+            }
             Destroy(item);
 
         }
