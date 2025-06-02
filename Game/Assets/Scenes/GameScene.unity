@@ -411,7 +411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &18418101
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8990,7 +8990,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 328565050}
-  - component: {fileID: 328565051}
   m_Layer: 5
   m_Name: SaveGameMenu
   m_TagString: Untagged
@@ -9019,18 +9018,6 @@ RectTransform:
   m_AnchoredPosition: {x: -50, y: -40}
   m_SizeDelta: {x: -900, y: -420}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &328565051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328565049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a613833831d0544d86196108e400906, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &329135394 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 482034, guid: d73214eddd849d24a84e9dcb68195d3d,
@@ -31482,7 +31469,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1127119788}
-  - component: {fileID: 1127119789}
   m_Layer: 5
   m_Name: SettingsMenu
   m_TagString: Untagged
@@ -31511,18 +31497,6 @@ RectTransform:
   m_AnchoredPosition: {x: -50, y: -40}
   m_SizeDelta: {x: -900, y: -420}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1127119789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1127119787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a613833831d0544d86196108e400906, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1127508081 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 402186, guid: 346d2a1b4aa86de4889f01fab83d8e95,
@@ -39463,6 +39437,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 661887763}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: TempSaveGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

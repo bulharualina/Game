@@ -283,6 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a613833831d0544d86196108e400906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadGameBTN: {fileID: 896459175}
 --- !u!1 &206134450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1951,6 +1952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a613833831d0544d86196108e400906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadGameBTN: {fileID: 896459175}
 --- !u!1 &873145036
 GameObject:
   m_ObjectHideFlags: 0
@@ -2814,7 +2816,7 @@ GameObject:
   - component: {fileID: 1264388354}
   - component: {fileID: 1264388353}
   m_Layer: 0
-  m_Name: MainMenuSaveManager
+  m_Name: SaveManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4420,6 +4422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a613833831d0544d86196108e400906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadGameBTN: {fileID: 896459175}
 --- !u!1 &1889406021
 GameObject:
   m_ObjectHideFlags: 0
