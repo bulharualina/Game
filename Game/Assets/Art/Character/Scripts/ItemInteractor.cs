@@ -24,11 +24,20 @@ public class ItemInteractor : MonoBehaviour
     
     private void Update()
     {
-        //Debug.DrawRay(playerCameraTransform.position, playerCameraTransform.forward * hitRange, Color.red);
+       
 
         if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, hitRange, pickableLayerMask))
         {
-
+            var selectionTransform = hit.transform;
+            ChoppableTree choppableTree = selectionTransform.GetComponent<ChoppableTree>();
+            if (choppableTree) 
+            {
+                if (choppableTree.playerInRange && Input.GetKeyDown(KeyCode.Q)) 
+                {
+                    choppableTree.GetHit(); 
+                }
+            }
+            
             pickUpUI.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
