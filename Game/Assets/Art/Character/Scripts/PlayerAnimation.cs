@@ -7,7 +7,7 @@ public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private float blendSpeed = 0.02f;
-
+    [SerializeField] private float attackAnimationDuration = 2.267f;
     private PlayerInput playerInput;
     private PlayerState playerState;
     private PlayerController playerController;
@@ -22,9 +22,10 @@ public class PlayerAnimation : MonoBehaviour
     private static int isRotatingToTargetHash = Animator.StringToHash("isRotatingToTarget");
     private static int rotationMismatchHash = Animator.StringToHash("rotationMismatch");
     private static int attackTriggerHash = Animator.StringToHash("AttackTrigger");
+    private static int isAttackingHash = Animator.StringToHash("IsAttacking");
 
     private Vector3 currentBlendInput = Vector3.zero;
-
+    private bool canAttack = true;
 
     private void Awake()
     {
@@ -84,7 +85,22 @@ public class PlayerAnimation : MonoBehaviour
 
     private void OnAttackInput()
     {
-        animator.SetTrigger(attackTriggerHash);
+        if (canAttack)
+        {
+            animator.SetTrigger(attackTriggerHash);
+            animator.SetBool(isAttackingHash, true); 
+            canAttack = false; 
+
+            
+            StartCoroutine(ResetAttackStateAfterDelay(attackAnimationDuration));
+        }
+    }
+    
+    private IEnumerator ResetAttackStateAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        animator.SetBool(isAttackingHash, false); 
+        canAttack = true; 
     }
 
 

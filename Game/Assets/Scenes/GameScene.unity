@@ -11637,7 +11637,7 @@ PrefabInstance:
     - target: {fileID: 4556614107121911618, guid: 55873a73fccbdf14586f4d879e560332,
         type: 3}
       propertyPath: m_Cameras.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4556614107121911618, guid: 55873a73fccbdf14586f4d879e560332,
         type: 3}
@@ -61969,6 +61969,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Item_Axe
+      objectReference: {fileID: 0}
+    - target: {fileID: 3327333107489901827, guid: 37fca19f541d5194f868fb9710b7537e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6545542936104084957, guid: 37fca19f541d5194f868fb9710b7537e,
         type: 3}
