@@ -71,6 +71,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""c1968824-5a22-4ae6-b8ee-f8a4bcac776a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -227,6 +236,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""WalkSwitch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""97e72e89-f29b-4f92-a0e8-e2e4ab00a218"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -268,6 +288,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_SprintSwitch = m_Player.FindAction("SprintSwitch", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_WalkSwitch = m_Player.FindAction("WalkSwitch", throwIfNotFound: true);
+        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         // Player3RD
         m_Player3RD = asset.FindActionMap("Player3RD", throwIfNotFound: true);
         m_Player3RD_ScrollCamera = m_Player3RD.FindAction("Scroll Camera", throwIfNotFound: true);
@@ -337,6 +358,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SprintSwitch;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_WalkSwitch;
+    private readonly InputAction m_Player_Attack;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -346,6 +368,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @SprintSwitch => m_Wrapper.m_Player_SprintSwitch;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @WalkSwitch => m_Wrapper.m_Player_WalkSwitch;
+        public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -370,6 +393,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @WalkSwitch.started += instance.OnWalkSwitch;
             @WalkSwitch.performed += instance.OnWalkSwitch;
             @WalkSwitch.canceled += instance.OnWalkSwitch;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -389,6 +415,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @WalkSwitch.started -= instance.OnWalkSwitch;
             @WalkSwitch.performed -= instance.OnWalkSwitch;
             @WalkSwitch.canceled -= instance.OnWalkSwitch;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -459,6 +488,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSprintSwitch(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnWalkSwitch(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
     }
     public interface IPlayer3RDActions
     {

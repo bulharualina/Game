@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     public float RotationMismatch { get; private set; } = 0f;
     public bool IsRotatingToTarget { get; private set; } = false;
 
+    [Header("Bones")]
+    [SerializeField] private Transform handRTransform;
+
     [Header("Base Movement")]
     public float walkSpeed = 3f;
     public float runSpeed = 5f;
@@ -60,7 +63,10 @@ public class PlayerController : MonoBehaviour
         playerState = GetComponent<PlayerState>();
     }
     #endregion
-
+    public Transform GetHandRTransform()
+    {
+        return handRTransform;
+    }
     #region Update
     private void Update()
     {

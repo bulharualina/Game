@@ -21,6 +21,7 @@ public class PlayerAnimation : MonoBehaviour
     private static int isIdlingHash = Animator.StringToHash("isIdling");
     private static int isRotatingToTargetHash = Animator.StringToHash("isRotatingToTarget");
     private static int rotationMismatchHash = Animator.StringToHash("rotationMismatch");
+    private static int attackTriggerHash = Animator.StringToHash("AttackTrigger");
 
     private Vector3 currentBlendInput = Vector3.zero;
 
@@ -36,7 +37,22 @@ public class PlayerAnimation : MonoBehaviour
     {
         UpdateAnimationState();
     }
+    private void OnEnable()
+    {
+        if (playerInput != null) // Ensure PlayerControls is accessible
+        {
+            playerInput.OnAttackTriggered -= OnAttackInput;
+            playerInput.OnAttackTriggered += OnAttackInput;
+        }
+    }
 
+    private void OnDisable()
+    {
+        if (playerInput != null)
+        {
+            playerInput.OnAttackTriggered -= OnAttackInput;
+        }
+    }
     private void UpdateAnimationState()
     {
         bool isIdling = playerState.CurrentPlayerMovementState == PlayerMovementState.Idling;
@@ -57,11 +73,22 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetBool(isFallingHash,isFalling);
         animator.SetBool(isIdlingHash, isIdling);
         animator.SetBool(isRotatingToTargetHash, playerController.IsRotatingToTarget);
-        
+       
+
         animator.SetFloat(inputXHash, currentBlendInput.x);
         animator.SetFloat (inputYHash, currentBlendInput.y);
         animator.SetFloat(inputMagnitudeHash, currentBlendInput.magnitude);
         animator.SetFloat(rotationMismatchHash, playerController.RotationMismatch);
-
+      
     }
+
+    private void OnAttackInput()
+    {
+        animator.SetTrigger(attackTriggerHash);
+    }
+
+
+  
+
+
 }

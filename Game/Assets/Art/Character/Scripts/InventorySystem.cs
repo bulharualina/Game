@@ -79,10 +79,10 @@ public class InventorySystem : MonoBehaviour
 
     public void AddToInventory(string itemName)
     {
-        if (!SaveManager.Instance.isLoading) 
-        { 
-            //play sound
-        }
+        //if (!SaveManager.Instance.isLoading) 
+       // { 
+         //   //play sound
+       // }
          _slotToEquip = FindNextEmptySlot();
 
         _itemToAdd = (GameObject)Instantiate(Resources.Load<GameObject>(itemName), _slotToEquip.transform.position, _slotToEquip.transform.rotation);

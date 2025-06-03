@@ -1,14 +1,13 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class EquipSystem : MonoBehaviour
 {
     public static EquipSystem Instance { get; set; }
+    [SerializeField] private PlayerController _playerController;
+    // -- UI -- //
 
-     // -- UI -- //
     public GameObject quickSlotsPanel;
 
     public List<GameObject> quickSlotsList = new List<GameObject>();
@@ -17,7 +16,7 @@ public class EquipSystem : MonoBehaviour
     public GameObject numbers;
 
     public int selectedNumber = -1;
-    public GameObject selectedItem;
+    private GameObject selectedItem;
 
     private void Awake()
     {
@@ -29,11 +28,13 @@ public class EquipSystem : MonoBehaviour
         {
             Instance = this;
         }
+       
     }
 
 
     private void Start()
     {
+        _playerController = FindObjectOfType<PlayerController>();
         PopulateSlotList();
     }
 
@@ -41,7 +42,7 @@ public class EquipSystem : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)) 
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             SelectQuickSlot(1);
         }
@@ -79,6 +80,7 @@ public class EquipSystem : MonoBehaviour
                 selectedItem = GetSelectedItem(number);
                 selectedItem.GetComponent<InventoryItem>().isSelected = true;
 
+                SetEquippedModel(selectedItem);
 
                 //change color
                 foreach (Transform child in numbers.transform)
@@ -88,7 +90,7 @@ public class EquipSystem : MonoBehaviour
                 TextMeshProUGUI toBeChanged = numbers.transform.Find("number" + number).transform.Find("Text").GetComponent<TextMeshProUGUI>();
                 toBeChanged.color = Color.white;
             }
-            else 
+            else
             {
                 selectedNumber = -1;
                 if (selectedItem != null)
@@ -103,12 +105,23 @@ public class EquipSystem : MonoBehaviour
                 }
             }
         }
-      
+
+    }
+
+    private void SetEquippedModel(GameObject selectedItem)
+    {
+        Transform handRTransform = _playerController.GetHandRTransform();
+
+        string selectedItemName = selectedItem.name.Replace("(Clone)", "");
+        GameObject itemModel = Instantiate(Resources.Load<GameObject>(selectedItemName + "_Model"),
+            new Vector3(0.1f,0.02f,-0.05f), Quaternion.Euler(-109f,-35f,35f));
+
+        itemModel.transform.SetParent(handRTransform.transform,false);
     }
 
     private GameObject GetSelectedItem(int slotNumber)
     {
-        return quickSlotsList[slotNumber-1].transform.GetChild(0).gameObject;
+        return quickSlotsList[slotNumber - 1].transform.GetChild(0).gameObject;
     }
 
     bool checkIfSlotIsFull(int slotNumber)
@@ -117,9 +130,9 @@ public class EquipSystem : MonoBehaviour
         {
             return true;
         }
-        else 
-        { 
-            return false; 
+        else
+        {
+            return false;
         }
     }
 
@@ -142,7 +155,7 @@ public class EquipSystem : MonoBehaviour
         itemToEquip.transform.SetParent(availableSlot.transform, false);
         // Getting clean name
         string cleanName = itemToEquip.name.Replace("(Clone)", "");
-      
+
 
         InventorySystem.Instance.ReCalculateList();
 

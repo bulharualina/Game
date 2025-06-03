@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,7 @@ public class PlayerInput : MonoBehaviour, PlayerControls.IPlayerActions
     public bool SwitchSprintOn { get; private set; }
     public bool SwitchWalkOn { get; private set; }
     public bool JumpPressed { get; private set; }
-
+    public event Action OnAttackTriggered;
     #endregion
 
     #region StartUp
@@ -95,6 +96,16 @@ public class PlayerInput : MonoBehaviour, PlayerControls.IPlayerActions
         }
 
         SwitchWalkOn = !SwitchWalkOn;
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (!context.performed) 
+        {
+            return;
+        }
+        OnAttackTriggered?.Invoke();
+
     }
     #endregion
 }
