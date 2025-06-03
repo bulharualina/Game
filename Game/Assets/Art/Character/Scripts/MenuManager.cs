@@ -34,6 +34,7 @@ public class MenuManager : MonoBehaviour
             uiCanvas.SetActive(false);
             menuCanvas.SetActive(true);
             isOpen = true;
+
         }
         else if (Input.GetKeyDown(KeyCode.M) && isOpen)
         {

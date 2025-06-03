@@ -69,6 +69,7 @@ public class InventorySystem : MonoBehaviour
             inventoryScreenUI.SetActive(true);
             isOpen = true;
 
+
         }
         else if (Input.GetKeyDown(KeyCode.I) && isOpen)
         {

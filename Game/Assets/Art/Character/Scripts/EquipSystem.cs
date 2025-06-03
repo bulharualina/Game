@@ -17,6 +17,7 @@ public class EquipSystem : MonoBehaviour
 
     public int selectedNumber = -1;
     private GameObject selectedItem;
+    public GameObject selectedItemModel;
 
     private void Awake()
     {
@@ -90,13 +91,19 @@ public class EquipSystem : MonoBehaviour
                 TextMeshProUGUI toBeChanged = numbers.transform.Find("number" + number).transform.Find("Text").GetComponent<TextMeshProUGUI>();
                 toBeChanged.color = Color.white;
             }
-            else
+            else//trying to select the same slot
             {
                 selectedNumber = -1;
                 if (selectedItem != null)
                 {
                     selectedItem.gameObject.GetComponent<InventoryItem>().isSelected = false;
                     selectedItem = null;
+                }
+
+                if(selectedItemModel!=null)
+                { 
+                    DestroyImmediate(selectedItemModel.gameObject);
+                    selectedItemModel = null;
                 }
 
                 foreach (Transform child in numbers.transform)
@@ -110,13 +117,19 @@ public class EquipSystem : MonoBehaviour
 
     private void SetEquippedModel(GameObject selectedItem)
     {
-        Transform handRTransform = _playerController.GetHandRTransform();
+        if (selectedItemModel != null)
+        {
+            DestroyImmediate(selectedItemModel.gameObject);
+            selectedItemModel = null;
+        }
 
+
+        Transform handRTransform = _playerController.GetHandRTransform();
         string selectedItemName = selectedItem.name.Replace("(Clone)", "");
-        GameObject itemModel = Instantiate(Resources.Load<GameObject>(selectedItemName + "_Model"),
+        selectedItemModel = Instantiate(Resources.Load<GameObject>(selectedItemName + "_Model"),
             new Vector3(0.1f,0.02f,-0.05f), Quaternion.Euler(-109f,-35f,35f));
 
-        itemModel.transform.SetParent(handRTransform.transform,false);
+        selectedItemModel.transform.SetParent(handRTransform.transform,false);
     }
 
     private GameObject GetSelectedItem(int slotNumber)
