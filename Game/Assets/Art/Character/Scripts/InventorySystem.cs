@@ -25,9 +25,9 @@ public class InventorySystem : MonoBehaviour
     //pickup PopUp
     public GameObject pickupPopUp;
     public TextMeshProUGUI pickupName;
-    public Image pickupImage; 
+    public Image pickupImage;
 
-
+    public List<string> pickedupItems;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -79,6 +79,10 @@ public class InventorySystem : MonoBehaviour
 
     public void AddToInventory(string itemName)
     {
+        if (!SaveManager.Instance.isLoading) 
+        { 
+            //play sound
+        }
          _slotToEquip = FindNextEmptySlot();
 
         _itemToAdd = (GameObject)Instantiate(Resources.Load<GameObject>(itemName), _slotToEquip.transform.position, _slotToEquip.transform.rotation);

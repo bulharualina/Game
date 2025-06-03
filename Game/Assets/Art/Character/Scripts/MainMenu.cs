@@ -9,13 +9,7 @@ public class MainMenu : MonoBehaviour
 
     public Button loadGameBTN;
 
-    private void Start()
-    {
-        loadGameBTN.onClick.AddListener(() => 
-        { 
-            SaveManager.Instance.StartLoadedGame(); 
-        });
-    }
+ 
     public void NewGame() 
     {
         SceneManager.LoadScene("GameScene");

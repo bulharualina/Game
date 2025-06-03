@@ -46,8 +46,5 @@ public class MenuManager : MonoBehaviour
             isOpen = false;
         }
     }
-    //check if it work
-    public void TempSaveGame() {
-        SaveManager.Instance.SaveGame();    
-    }
+  
 }

@@ -57,7 +57,7 @@ public class ItemInteractor : MonoBehaviour
         if (!InventorySystem.Instance.CheckIfInventoryFull())
         {
             InventorySystem.Instance.AddToInventory(pickable.ItemName);
-
+            InventorySystem.Instance.pickedupItems.Add(pickable.ItemName);
             if (pickUpUI != null)
             {
                 pickUpUI?.SetActive(false);
