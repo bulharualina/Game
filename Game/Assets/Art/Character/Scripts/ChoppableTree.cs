@@ -29,6 +29,7 @@ public class ChoppableTree : MonoBehaviour
     private void Start()
     {
         treeHealth = treeMaxHealth;
+        Debug.Log($"ChoppableTree (Start): Initialized treeHealth to {treeHealth} (from treeMaxHealth: {treeMaxHealth})");
         if (chopHolderUI != null)
         {
             chopHolderUI.SetActive(false);

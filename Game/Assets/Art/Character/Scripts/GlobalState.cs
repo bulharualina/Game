@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GlobalState : MonoBehaviour
 {
-    public static GlobalState Instance {  get; set; }
+    public static GlobalState Instance {  get; private set; }
 
     public float resourceHealth;
     public float resourceHealthMax;
