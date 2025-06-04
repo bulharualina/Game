@@ -11886,8 +11886,8 @@ MonoBehaviour:
     m_Bits: 128
   playerCameraTransform: {fileID: 381781911}
   pickUpUI: {fileID: 1110931033}
+  pickUpUIText: {fileID: 0}
   hitRange: 3
-  chopHolder: {fileID: 0}
   axeActiveDuration: 0.2
 --- !u!4 &381781913 stripped
 Transform:
@@ -32648,8 +32648,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21.19
-  m_fontSizeBase: 21.19
+  m_fontSize: 22
+  m_fontSizeBase: 22
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

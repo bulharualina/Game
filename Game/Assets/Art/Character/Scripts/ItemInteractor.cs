@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,7 +14,8 @@ public class ItemInteractor : MonoBehaviour
 
     [SerializeField]
     private GameObject pickUpUI;
-
+    [SerializeField]
+    private TextMeshProUGUI pickUpUIText;
     private PlayerAnimation playerAnimation;
 
 
@@ -22,14 +24,21 @@ public class ItemInteractor : MonoBehaviour
     private float hitRange = 3;
 
     private RaycastHit hit;
-    public GameObject chopHolder;
+   
 
     [SerializeField] private float axeActiveDuration = 0.2f; // How long the axe stays active after Q press
     private bool axeIsActive = false;
     private void Awake()
     {
         playerAnimation = GetComponent<PlayerAnimation>();
-    
+        if (pickUpUIText == null && pickUpUI != null)
+        {
+            pickUpUIText = pickUpUI.GetComponentInChildren<TextMeshProUGUI>();
+            if (pickUpUIText == null)
+            {
+                Debug.LogError("ItemInteractor: pickUpUIText not assigned and could not be found in children of PickUpUI!");
+            }
+        }
     }
     private void Start()
     {
@@ -47,54 +56,90 @@ public class ItemInteractor : MonoBehaviour
         {
             Debug.LogError("ItemInteractor Start: playerAnimation or axeHitbox reference is NULL. Check PlayerAnimation Inspector assignment!");
         }
+
+        if (pickUpUI != null)
+        {
+            pickUpUI.SetActive(false);
+        }
     }
     private void Update()
     {
      
         bool qKeyPressedThisFrame = Input.GetKeyDown(KeyCode.Q);
-
-        if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, hitRange, pickableLayerMask))
+        bool raycastHitSomething = Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out hit, hitRange, pickableLayerMask);
+       
+        
+        if (raycastHitSomething)
         {
             var selectionTransform = hit.transform;
             ChoppableTree choppableTree = selectionTransform.GetComponent<ChoppableTree>();
+            PickableItem pickableItem = selectionTransform.GetComponent<PickableItem>();
+            bool interacted = false; // Flag to know if we handled an interaction
 
-            if (choppableTree == null)
+            if (choppableTree != null) // If we hit a tree
             {
-                Debug.LogWarning($"ItemInteractor Update: Raycast hit '{selectionTransform.name}' but no ChoppableTree component found on it!");
-                // Continue only if ChoppableTree exists
-                return; // Exit this part of the Update if no ChoppableTree
-            }
-
-            
-            if (qKeyPressedThisFrame) 
-            {
-                
-                if (choppableTree.playerInRange && choppableTree.canBeChopped && !axeIsActive) 
+                // Update UI text for chopping
+                if (pickUpUIText != null)
                 {
-                  
-
-                    playerAnimation.TriggerChopAttack();
-                   
-                    EnableAxeColliderManual(); // Call the new method to activate
-                    
+                    pickUpUIText.text = "Press [Q] to chop tree";
                 }
-                
+                pickUpUI.SetActive(true); // Show UI
+                choppableTree.canBeChopped = true; // Ensure canBeChopped is true when looking at it.
+
+                if (qKeyPressedThisFrame)
+                {
+                    if (choppableTree.playerInRange && !axeIsActive) // playerInRange handled by ChoppableTree's own OnTriggerEnter
+                    {
+                        playerAnimation.TriggerChopAttack();
+                        EnableAxeColliderManual();
+                        interacted = true;
+                    }
+                }
             }
-            
-            pickUpUI.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E))
+            else if (pickableItem != null) // If we hit a pickable item
             {
-                PickUpItem(hit.collider.gameObject);
+                // Update UI text for picking up
+                if (pickUpUIText != null)
+                {
+                    pickUpUIText.text = "Press [E] to pick up";
+                }
+                pickUpUI.SetActive(true); // Show UI
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    PickUpItem(hit.collider.gameObject);
+                    interacted = true;
+                }
             }
+            else // Hit something on pickableLayerMask but it's neither a tree nor a pickable item
+            {
+                // Hide UI if it's not a recognized interactive object
+                if (pickUpUI != null && pickUpUI.activeSelf)
+                {
+                    pickUpUI.SetActive(false);
+                }
+            }
+
+            // If we interacted this frame, or if the UI was shown, keep it active
+            // This ensures the UI stays visible for a moment even if no interaction happens yet
+            if (pickUpUI != null && !interacted && (choppableTree != null || pickableItem != null))
+            {
+                pickUpUI.SetActive(true);
+            }
+            else if (pickUpUI != null && !interacted && choppableTree == null && pickableItem == null)
+            {
+                pickUpUI.SetActive(false); // Hide if nothing interactable is hit
+            }
+
         }
-        else {
+        else // No raycast hit anything on the pickable layer mask
+        {
             if (pickUpUI != null && pickUpUI.activeSelf)
             {
-                pickUpUI?.SetActive(false);
-
+                pickUpUI.SetActive(false);
             }
         }
-       
+
 
     }
 
