@@ -28,19 +28,14 @@ public class ResourcesHealthBar : MonoBehaviour
     {
         currentHealth = globalState.GetComponent<GlobalState>().resourceHealth;
         maxHealth = globalState.GetComponent<GlobalState>().resourceHealthMax;
+
+        Debug.Log($"ResourcesHealthBar (Update): Reading from GlobalState -> Current: {currentHealth}, Max: {maxHealth}");
         if (maxHealth > 0)
         {
             _slider.maxValue = maxHealth; // Ensure slider max matches global max
             _slider.value = currentHealth; // Set slider value
+            Debug.Log($"ResourcesHealthBar (Update): Slider set to -> Max: {_slider.maxValue}, Value: {_slider.value}, Fill Ratio: {_slider.value / _slider.maxValue}");
 
-            // Log the final slider values and ratio
-            Debug.Log($"ResourcesHealthBar (Update): Slider updated -> Slider Max: {_slider.maxValue}, Slider Value: {_slider.value}, Fill Ratio: {_slider.value / _slider.maxValue}");
-
-            // Optional: Update health text
-            // if (healthText != null)
-            // {
-            //     healthText.text = $"{currentGlobalHealth}/{maxGlobalHealth}";
-            // }
         }
         else
         {

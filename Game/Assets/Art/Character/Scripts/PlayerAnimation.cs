@@ -7,7 +7,7 @@ public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private float blendSpeed = 0.02f;
-    [SerializeField] private Collider axeHitbox; // Assign your axe's trigger collider here in the Inspector!
+    [SerializeField] public Collider axeHitbox; // Assign your axe's trigger collider here in the Inspector!
     [SerializeField] private float hitCooldown = 0.5f; // NEW: Adjust this value in Inspector (e.g., 0.2f to 0.5f)
     private bool canRegisterHit = true;
 
