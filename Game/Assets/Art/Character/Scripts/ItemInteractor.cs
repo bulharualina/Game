@@ -14,14 +14,21 @@ public class ItemInteractor : MonoBehaviour
     [SerializeField]
     private GameObject pickUpUI;
 
+    private PlayerAnimation playerAnimation;
+
 
     [SerializeField]
     [Min(1)]
     private float hitRange = 3;
 
     private RaycastHit hit;
+    public GameObject chopHolder;
 
-    
+    private void Awake()
+    {
+        playerAnimation = GetComponent<PlayerAnimation>();
+    }
+
     private void Update()
     {
        
@@ -34,7 +41,7 @@ public class ItemInteractor : MonoBehaviour
             {
                 if (choppableTree.playerInRange && Input.GetKeyDown(KeyCode.Q)) 
                 {
-                    choppableTree.GetHit(); 
+                    playerAnimation.TriggerChopAttack();
                 }
             }
             

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 352949467343330549}
   - component: {fileID: 1132379330503415876}
-  - component: {fileID: 5369884421395565311}
   - component: {fileID: 1839532703162469107}
   m_Layer: 0
   m_Name: tree_base
@@ -55,20 +54,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 5, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5369884421395565311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4599051899229010881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 088181824f79a054b954681a62cc9909, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInRange: 0
-  canBeChopped: 0
 --- !u!65 &1839532703162469107
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -103,9 +88,11 @@ GameObject:
   - component: {fileID: 92348892604987585}
   - component: {fileID: 8327720389444985271}
   - component: {fileID: 3502155509110020547}
+  - component: {fileID: 6961831097523202059}
+  - component: {fileID: 401429691501414507}
   m_Layer: 0
   m_Name: Tree0001
-  m_TagString: Untagged
+  m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,7 +105,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6340366694032012749}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -204.275, y: -190.44371, z: 344.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -220,3 +207,41 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43738739378627088, guid: cd10e5b687d5dd24f9959e0ee4d0bb5f, type: 2}
+--- !u!65 &6961831097523202059
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6340366694032012749}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.7022166, y: 5.5757275, z: 2.7304845}
+  m_Center: {x: -0.000004887581, y: 2.7878637, z: 0}
+--- !u!114 &401429691501414507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6340366694032012749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 088181824f79a054b954681a62cc9909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInRange: 0
+  canBeChopped: 1
+  treeMaxHealth: 4
+  treeHealth: 0
+  chopHolderUI: {fileID: 0}

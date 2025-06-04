@@ -7,10 +7,14 @@ public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private float blendSpeed = 0.02f;
-    [SerializeField] private float attackAnimationDuration = 2.267f;
+    [SerializeField] private Collider axeHitbox; // Assign your axe's trigger collider here in the Inspector!
+    [SerializeField] private float hitCooldown = 0.5f; // NEW: Adjust this value in Inspector (e.g., 0.2f to 0.5f)
+    private bool canRegisterHit = true;
+
     private PlayerInput playerInput;
     private PlayerState playerState;
     private PlayerController playerController;
+
 
     private static int inputXHash = Animator.StringToHash("inputX");
     private static int inputYHash = Animator.StringToHash("inputY");
@@ -32,6 +36,7 @@ public class PlayerAnimation : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerState = GetComponent<PlayerState>();
         playerController = GetComponent<PlayerController>();
+        
     }
 
     private void Update()
@@ -40,7 +45,7 @@ public class PlayerAnimation : MonoBehaviour
     }
     private void OnEnable()
     {
-        if (playerInput != null) // Ensure PlayerControls is accessible
+        if (playerInput != null) 
         {
             playerInput.OnAttackTriggered -= OnAttackInput;
             playerInput.OnAttackTriggered += OnAttackInput;
@@ -92,19 +97,56 @@ public class PlayerAnimation : MonoBehaviour
             canAttack = false; 
 
             
-            StartCoroutine(ResetAttackStateAfterDelay(attackAnimationDuration));
+            StartCoroutine(ResetAttackStateAfterDelay());
         }
     }
     
-    private IEnumerator ResetAttackStateAfterDelay(float delay)
+    private IEnumerator ResetAttackStateAfterDelay()
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(1);
         animator.SetBool(isAttackingHash, false); 
         canAttack = true; 
     }
+    public void EnableAxeCollider()
+    {
+        if (axeHitbox != null)
+        {
+            axeHitbox.enabled = true;
+            canRegisterHit = true; // Reset for a new swing
+            Debug.Log("Axe collider ENABLED");
+        }
+    }
+    public void TriggerChopAttack()
+    {
+        OnAttackInput(); // Calls your existing attack animation logic
+    }
+    public void DisableAxeCollider()
+    {
+        if (axeHitbox != null)
+        {
+            axeHitbox.enabled = false;
+            // No need to reset canRegisterHit here, it's done on EnableAxeCollider
+            Debug.Log("Axe collider DISABLED");
+        }
+    }
+    public bool TryRegisterHit()
+    {
+        if (canRegisterHit)
+        {
+            canRegisterHit = false; // Disable hit registration immediately
+            // Start a short coroutine to re-enable hit registration after a delay
+            StartCoroutine(HitCooldownCoroutine());
+            return true; // Successfully registered a hit
+        }
+        return false; // Could not register hit (still on cooldown)
+    }
 
+    private IEnumerator HitCooldownCoroutine()
+    {
+        yield return new WaitForSeconds(hitCooldown);
+        canRegisterHit = true; // Allow hit registration again after cooldown
+    }
 
-  
 
 
 }
