@@ -99,7 +99,7 @@ public class ChoppableTree : MonoBehaviour
         if (treeHealth > 0)
         {
             treeHealth -= 1;
-            PlayerSurvivalStats.Instance.currentCalories -= caloriesSpentChopping;
+            PlayerSurvivalStats.Instance.currentCalories -= caloriesSpentChopping;//NU MERGE
 
             if (GlobalState.Instance != null && playerInRange) // Ensure player is still looking at this tree
             {
