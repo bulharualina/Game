@@ -19,6 +19,8 @@ public class ChoppableTree : MonoBehaviour
     private PlayerAnimation playerAnimation;
   
     [SerializeField] private float hitDelay = 0.6f;
+
+    public float caloriesSpentChopping = 20;
     private void Awake() 
     {
         if (playerAnimation == null)
@@ -39,14 +41,7 @@ public class ChoppableTree : MonoBehaviour
         }
     }
 
-    //private void Update()
-    //{
-     //   if (canBeChopped) 
-     //   { 
-     //       GlobalState.Instance.resourceHealth = treeHealth;
-     //       GlobalState.Instance.resourceHealthMax = treeMaxHealth;
-     //   }
-   // }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) 
@@ -104,21 +99,17 @@ public class ChoppableTree : MonoBehaviour
         if (treeHealth > 0)
         {
             treeHealth -= 1;
-            Debug.Log($"ChoppableTree ({gameObject.name}): Health decreased to: {treeHealth}");
+            PlayerSurvivalStats.Instance.currentCalories -= caloriesSpentChopping;
 
             if (GlobalState.Instance != null && playerInRange) // Ensure player is still looking at this tree
             {
                 GlobalState.Instance.resourceHealth = treeHealth;
-               
-                Debug.Log($"ChoppableTree ({gameObject.name}): GlobalState health updated after hit to: {treeHealth}");
             }
 
             if (treeHealth <= 0)
             {
-                Debug.Log($"ChoppableTree ({gameObject.name}): Tree destroyed!");
-
-                // Destroy the parent GameObject (Tree000n)
-                Destroy(transform.parent.gameObject);
+                DestroyTree();
+                
 
                 if (chopHolderUI != null)
                 {
@@ -143,5 +134,13 @@ public class ChoppableTree : MonoBehaviour
        
     }
 
-   
+    void DestroyTree()
+    {
+       Vector3 treePos = transform.position;
+
+       Destroy(transform.parent.gameObject);
+        canBeChopped = false;
+
+        GameObject choppedTree = Instantiate(Resources.Load<GameObject>("ChoppedTree"),new Vector3(treePos.x,treePos.y+0.5f,treePos.z),Quaternion.Euler(0,0,0));
+    }
 }
