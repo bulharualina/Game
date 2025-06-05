@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EquipSystem : MonoBehaviour
@@ -207,6 +209,18 @@ public class EquipSystem : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+    internal int GetWeaponDamage()
+    {
+        if (selectedItem != null)
+        {
+            return selectedItem.GetComponent<Weapon>().weaponDamage;
+        }
+        else 
+        {
+            return 0;
         }
     }
 }

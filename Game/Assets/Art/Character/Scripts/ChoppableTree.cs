@@ -136,11 +136,11 @@ public class ChoppableTree : MonoBehaviour
 
     void DestroyTree()
     {
-       Vector3 treePos = transform.position;
+       //Vector3 treePos = transform.position;
 
        Destroy(transform.parent.gameObject);
         canBeChopped = false;
 
-        GameObject choppedTree = Instantiate(Resources.Load<GameObject>("ChoppedTree"),new Vector3(treePos.x,treePos.y+0.5f,treePos.z),Quaternion.Euler(0,0,0));
+        GameObject choppedTree = Instantiate(Resources.Load<GameObject>("ChoppedTree"),transform.position,Quaternion.Euler(0,0,0));
     }
 }

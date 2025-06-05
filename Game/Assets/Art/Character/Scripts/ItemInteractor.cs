@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -74,6 +75,8 @@ public class ItemInteractor : MonoBehaviour
             var selectionTransform = hit.transform;
             ChoppableTree choppableTree = selectionTransform.GetComponent<ChoppableTree>();
             PickableItem pickableItem = selectionTransform.GetComponent<PickableItem>();
+            Animal animal = selectionTransform.GetComponent<Animal>();
+            
             bool interacted = false; // Flag to know if we handled an interaction
 
             if (choppableTree != null) // If we hit a tree
@@ -111,6 +114,29 @@ public class ItemInteractor : MonoBehaviour
                     interacted = true;
                 }
             }
+            else if (animal != null) 
+            {
+                // Update UI text for chopping
+                if (pickUpUIText != null)
+                {
+                    pickUpUIText.text = "Press [Q] to kill the " + animal.animalName;
+                }
+                pickUpUI.SetActive(true); // Show UI
+                
+
+                if (qKeyPressedThisFrame)
+                {
+                    if (animal.playerInRange && !axeIsActive) // playerInRange handled by ChoppableTree's own OnTriggerEnter
+                    {
+                        // playerAnimation.TriggerChopAttack();
+                        StartCoroutine(DealDamageTo(animal,0.3f,EquipSystem.Instance.GetWeaponDamage()));
+                        //playerAnimation.TriggerChopAttack();
+                        EnableAxeColliderManual();
+                        interacted = true;
+                    }
+                }
+
+            }
             else // Hit something on pickableLayerMask but it's neither a tree nor a pickable item
             {
                 // Hide UI if it's not a recognized interactive object
@@ -141,6 +167,12 @@ public class ItemInteractor : MonoBehaviour
         }
 
 
+    }
+
+    private IEnumerator DealDamageTo(Animal animal, float delay, int damage)
+    {
+        yield return new WaitForSeconds(delay);
+        animal.TakeDamage(damage);
     }
 
     private void EnableAxeColliderManual()
