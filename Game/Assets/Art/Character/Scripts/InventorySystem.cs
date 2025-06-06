@@ -85,7 +85,9 @@ public class InventorySystem : MonoBehaviour
          //   //play sound
        // }
          _slotToEquip = FindNextEmptySlot();
-
+        //Debug.Log($"[InventorySystem] Attempting to load item: '{itemName}'");
+        //GameObject itemPrefab = Resources.Load<GameObject>(itemName);
+        
         _itemToAdd = (GameObject)Instantiate(Resources.Load<GameObject>(itemName), _slotToEquip.transform.position, _slotToEquip.transform.rotation);
        
 

@@ -9,21 +9,24 @@ public class CraftingSystem : MonoBehaviour
     public GameObject craftingScreenUI;
     public GameObject toolsScreenUI;
     public GameObject constructionsScreenUI;
+    public GameObject refineProcessScreenUI;
+
 
     public List<string> inventoryItemList = new List<string>();
 
     //category Buttons
-    Button toolsBTN;
-    Button constructionBTN;
+    Button _toolsBTN;
+    Button _constructionBTN;
+    Button _refineProcessBTN;
 
     //Craft Buttons
-    Button craftAxeBTN;
-    Button craftPlanckBTN;
+    Button _craftAxeBTN;
+    Button _craftPlankBTN;
 
 
     //Req text
-    TextMeshProUGUI AxeReq1, AxeReq2;
-    TextMeshProUGUI PlanckReq;
+    TextMeshProUGUI _AxeReq1, _AxeReq2;
+    TextMeshProUGUI _PlankReq;
 
     public bool isOpen;
 
@@ -31,7 +34,7 @@ public class CraftingSystem : MonoBehaviour
     //blueprints
 
     public CraftingBlueprint AxeBLP = new CraftingBlueprint("Axe",2,"Stone",3,"Stick",3);
-    public CraftingBlueprint PlanckBLP = new CraftingBlueprint("Planck",1,"Log",1);
+    public CraftingBlueprint PlankBLP = new CraftingBlueprint("Plank",1,"Log",1);
     public static CraftingSystem Instance { get; set; }
 
 
@@ -51,24 +54,39 @@ public class CraftingSystem : MonoBehaviour
     private void Start()
     {
         isOpen = false;
+        //Buttons
+        _toolsBTN = craftingScreenUI.transform.Find("ToolsButton").GetComponent<Button>();
+        _toolsBTN.onClick.AddListener(delegate { OpenToolsCategory(); });
+       
+        _constructionBTN = craftingScreenUI.transform.Find("ConstructionButton").GetComponent<Button>();
+        _constructionBTN.onClick.AddListener(delegate { OpenConstructionsCategory(); });
 
-        toolsBTN = craftingScreenUI.transform.Find("ToolsButton").GetComponent<Button>();
-        toolsBTN.onClick.AddListener(delegate { OpenToolsCategory(); });
-        constructionBTN = craftingScreenUI.transform.Find("ConstructionButton").GetComponent<Button>();
-        constructionBTN.onClick.AddListener(delegate { OpenConstructionsCategory(); });
-        
-        
+        _refineProcessBTN = craftingScreenUI.transform.Find("RefineProcessButton").GetComponent<Button>();
+        _refineProcessBTN.onClick.AddListener(delegate { OpenRefineProcessCategory(); });
+
+        //-----TOOLS------
         //Axe
-        AxeReq1 = toolsScreenUI.transform.Find("Axe").transform.Find("req1").GetComponent<TMPro.TextMeshProUGUI>();
-        AxeReq2 = toolsScreenUI.transform.Find("Axe").transform.Find("req2").GetComponent<TMPro.TextMeshProUGUI>();
+        _AxeReq1 = toolsScreenUI.transform.Find("Axe").transform.Find("req1").GetComponent<TMPro.TextMeshProUGUI>();
+        _AxeReq2 = toolsScreenUI.transform.Find("Axe").transform.Find("req2").GetComponent<TMPro.TextMeshProUGUI>();
 
-        craftAxeBTN = toolsScreenUI.transform.Find("Axe").transform.Find("Button").GetComponent<Button>();
-        craftAxeBTN.onClick.AddListener(delegate { CraftAnyItem(AxeBLP); });
+        _craftAxeBTN = toolsScreenUI.transform.Find("Axe").transform.Find("Button").GetComponent<Button>();
+        _craftAxeBTN.onClick.AddListener(delegate { CraftAnyItem(AxeBLP); });
 
-        //Planck
-        PlanckReq = constructionsScreenUI.transform.Find("Planck").transform.Find("req").GetComponent<TextMeshProUGUI>();
-        craftPlanckBTN = constructionsScreenUI.transform.Find("Planck").transform.Find("Button").GetComponent<Button>();
-        craftAxeBTN.onClick.AddListener(delegate { CraftAnyItem(PlanckBLP); });
+        //-----Construction-----
+
+
+        //-----Refine & Process-----
+        //Plank
+        _PlankReq = refineProcessScreenUI.transform.Find("Plank").transform.Find("req").GetComponent<TextMeshProUGUI>();
+
+        _craftPlankBTN = refineProcessScreenUI.transform.Find("Plank").transform.Find("Button").GetComponent<Button>();
+        _craftPlankBTN.onClick.AddListener(delegate { CraftAnyItem(PlankBLP); });
+    }
+
+    private void OpenRefineProcessCategory()
+    {
+        craftingScreenUI.SetActive(false);
+        refineProcessScreenUI.SetActive(true);
     }
 
     private void OpenConstructionsCategory()
@@ -79,6 +97,7 @@ public class CraftingSystem : MonoBehaviour
 
     private void CraftAnyItem(CraftingBlueprint blpToCraft)
     {
+        Debug.Log("Attempting to craft: " + blpToCraft.itemName);
         InventorySystem.Instance.AddToInventory(blpToCraft.itemName);
         if (blpToCraft.numOfReq == 1) 
         {
@@ -112,6 +131,7 @@ public class CraftingSystem : MonoBehaviour
             craftingScreenUI.SetActive(false);
             toolsScreenUI.SetActive(false);
             constructionsScreenUI.SetActive(false);
+            refineProcessScreenUI.SetActive(false);
             isOpen = false;
 
         }
@@ -135,34 +155,34 @@ public class CraftingSystem : MonoBehaviour
                 case "Stick":
                     stick_count++;
                     break;
-                case "Planck":
+                case "Log":
                     log_count++;
                     break;
             }
         }
 
         //Axe
-        AxeReq1.text = "3 Stone ["+ stone_count +"]";
-        AxeReq2.text = "3 Stick [" + stick_count + "]";
+        _AxeReq1.text = "3 Stone ["+ stone_count +"]";
+        _AxeReq2.text = "3 Stick [" + stick_count + "]";
 
         if (stone_count >= 3 && stick_count >= 3)
         {
-            craftAxeBTN.gameObject.SetActive(true);
+            _craftAxeBTN.gameObject.SetActive(true);
         }
         else 
         {
-            craftAxeBTN.gameObject.SetActive(false);
+            _craftAxeBTN.gameObject.SetActive(false);
         }
 
-        //Planck
-        PlanckReq.text = "1 Log [" + log_count + "]";
+        //Plank
+        _PlankReq.text = "1 Log [" + log_count + "]";
         if (log_count >= 1)
         {
-            craftPlanckBTN.gameObject.SetActive(true);
+            _craftPlankBTN.gameObject.SetActive(true);
         }
         else 
         {
-            craftPlanckBTN.gameObject.SetActive(false);
+            _craftPlankBTN.gameObject.SetActive(false);
         }
 
     }
