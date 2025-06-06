@@ -22,11 +22,16 @@ public class CraftingSystem : MonoBehaviour
     //Craft Buttons
     Button _craftAxeBTN;
     Button _craftPlankBTN;
+    Button _craftFoundationBTN;
+    Button _craftWallBTN;
+
 
 
     //Req text
     TextMeshProUGUI _AxeReq1, _AxeReq2;
     TextMeshProUGUI _PlankReq;
+    TextMeshProUGUI _FoundationReq;
+    TextMeshProUGUI _WallReq;
 
     public bool isOpen;
 
@@ -35,6 +40,8 @@ public class CraftingSystem : MonoBehaviour
 
     public CraftingBlueprint AxeBLP = new CraftingBlueprint("Axe",2,"Stone",3,"Stick",3);
     public CraftingBlueprint PlankBLP = new CraftingBlueprint("Plank",1,"Log",1);
+    public CraftingBlueprint FoundationBLP = new CraftingBlueprint("Foundation",1,"Plank",4);
+    public CraftingBlueprint WallBLP = new CraftingBlueprint("Wall", 1, "Plank", 2);
     public static CraftingSystem Instance { get; set; }
 
 
@@ -68,17 +75,23 @@ public class CraftingSystem : MonoBehaviour
         //Axe
         _AxeReq1 = toolsScreenUI.transform.Find("Axe").transform.Find("req1").GetComponent<TMPro.TextMeshProUGUI>();
         _AxeReq2 = toolsScreenUI.transform.Find("Axe").transform.Find("req2").GetComponent<TMPro.TextMeshProUGUI>();
-
         _craftAxeBTN = toolsScreenUI.transform.Find("Axe").transform.Find("Button").GetComponent<Button>();
         _craftAxeBTN.onClick.AddListener(delegate { CraftAnyItem(AxeBLP); });
 
         //-----Construction-----
+        //Foundation
+        _FoundationReq = constructionsScreenUI.transform.Find("Foundation").transform.Find("req").GetComponent<TextMeshProUGUI>();
+        _craftFoundationBTN = constructionsScreenUI.transform.Find("Foundation").transform.Find("Button").GetComponent<Button>();
+        _craftFoundationBTN.onClick.AddListener(delegate { CraftAnyItem(FoundationBLP); });
 
+        //Wall
+        _WallReq = constructionsScreenUI.transform.Find("Wall").transform.Find("req").GetComponent<TextMeshProUGUI>();
+        _craftWallBTN = constructionsScreenUI.transform.Find("Wall").transform.Find("Button").GetComponent<Button>();
+        _craftWallBTN.onClick.AddListener(delegate { CraftAnyItem(WallBLP); });
 
         //-----Refine & Process-----
         //Plank
         _PlankReq = refineProcessScreenUI.transform.Find("Plank").transform.Find("req").GetComponent<TextMeshProUGUI>();
-
         _craftPlankBTN = refineProcessScreenUI.transform.Find("Plank").transform.Find("Button").GetComponent<Button>();
         _craftPlankBTN.onClick.AddListener(delegate { CraftAnyItem(PlankBLP); });
     }
@@ -94,10 +107,15 @@ public class CraftingSystem : MonoBehaviour
         craftingScreenUI.SetActive(false);
         constructionsScreenUI.SetActive(true);
     }
+    void OpenToolsCategory()
+    {
+        craftingScreenUI.SetActive(false);
+        toolsScreenUI.SetActive(true);
+    }
 
     private void CraftAnyItem(CraftingBlueprint blpToCraft)
     {
-        Debug.Log("Attempting to craft: " + blpToCraft.itemName);
+       //Debug.Log("Attempting to craft: " + blpToCraft.itemName);
         InventorySystem.Instance.AddToInventory(blpToCraft.itemName);
         if (blpToCraft.numOfReq == 1) 
         {
@@ -113,11 +131,7 @@ public class CraftingSystem : MonoBehaviour
  
    
 
-    void OpenToolsCategory() 
-    { 
-        craftingScreenUI.SetActive(false);
-        toolsScreenUI.SetActive(true);
-    }
+  
 
     private void Update()
     {
@@ -142,6 +156,7 @@ public class CraftingSystem : MonoBehaviour
         int stone_count = 0;
         int stick_count = 0;
         int log_count = 0;
+        int plank_count = 0;
 
         inventoryItemList = InventorySystem.Instance.itemList;
 
@@ -157,6 +172,9 @@ public class CraftingSystem : MonoBehaviour
                     break;
                 case "Log":
                     log_count++;
+                    break;
+                case "Plank":
+                    plank_count++;
                     break;
             }
         }
@@ -185,5 +203,26 @@ public class CraftingSystem : MonoBehaviour
             _craftPlankBTN.gameObject.SetActive(false);
         }
 
+        //Foundation
+        _FoundationReq.text ="4 Plank ["+plank_count +"]";
+        if (plank_count >= 4)
+        {
+            _craftFoundationBTN.gameObject.SetActive(true);
+        }
+        else 
+        {
+            _craftFoundationBTN.gameObject.SetActive(false);
+        }
+
+        //Wall
+        _WallReq.text = "2 Plank [" + plank_count + "]";
+        if (plank_count >= 2)
+        {
+            _craftWallBTN.gameObject.SetActive(true);
+        }
+        else
+        {
+            _craftWallBTN.gameObject.SetActive(false);
+        }
     }
 }
