@@ -135,6 +135,19 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         CraftingSystem.Instance.craftingScreenUI.SetActive(false);
         CraftingSystem.Instance.toolsScreenUI.SetActive(false);
         CraftingSystem.Instance.constructionsScreenUI.SetActive(false);
+        CraftingSystem.Instance.refineProcessScreenUI.SetActive(false);
+
+        switch (gameObject.name)
+        {
+            case "Foundation(Clone)":
+                ConstructionManager.Instance.ActivateConstructionPlacement("FoundationModel");
+                break;
+            case "Foundation":
+                ConstructionManager.Instance.ActivateConstructionPlacement("FoundationModel");
+                break;
+            default:
+                break;
+        }
 
     }
 

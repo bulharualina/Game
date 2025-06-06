@@ -40,7 +40,7 @@ public class CraftingSystem : MonoBehaviour
 
     public CraftingBlueprint AxeBLP = new CraftingBlueprint("Axe",2,"Stone",3,"Stick",3);
     public CraftingBlueprint PlankBLP = new CraftingBlueprint("Plank",1,"Log",1);
-    public CraftingBlueprint FoundationBLP = new CraftingBlueprint("Foundation",1,"Plank",4);
+    public CraftingBlueprint FoundationBLP = new CraftingBlueprint("Foundation",1, "Plank", 4);
     public CraftingBlueprint WallBLP = new CraftingBlueprint("Wall", 1, "Plank", 2);
     public static CraftingSystem Instance { get; set; }
 
@@ -117,6 +117,12 @@ public class CraftingSystem : MonoBehaviour
     {
        //Debug.Log("Attempting to craft: " + blpToCraft.itemName);
         InventorySystem.Instance.AddToInventory(blpToCraft.itemName);
+        if (blpToCraft.itemName == "Plank") 
+        {
+            InventorySystem.Instance.AddToInventory(blpToCraft.itemName);
+           // InventorySystem.Instance.AddToInventory(blpToCraft.itemName);
+
+        }
         if (blpToCraft.numOfReq == 1) 
         {
             InventorySystem.Instance.RemoveItem(blpToCraft.Req1, blpToCraft.Req1amount);
@@ -204,7 +210,7 @@ public class CraftingSystem : MonoBehaviour
         }
 
         //Foundation
-        _FoundationReq.text ="4 Plank ["+plank_count +"]";
+        _FoundationReq.text = "4 Plank [" + plank_count +"]";
         if (plank_count >= 4)
         {
             _craftFoundationBTN.gameObject.SetActive(true);

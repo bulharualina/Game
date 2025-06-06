@@ -125,5 +125,5 @@ MonoBehaviour:
   isEquippable: 0
   isInsideQuickSlot: 0
   isSelected: 0
-  isUsable: 0
+  isUsable: 1
   itemPendingToBeUsed: {fileID: 0}

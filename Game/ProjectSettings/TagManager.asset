@@ -9,6 +9,9 @@ TagManager:
   - AxeHitbox
   - Tree
   - Animal
+  - Ground
+  - Pickable
+  - Ghost
   layers:
   - Default
   - TransparentFX

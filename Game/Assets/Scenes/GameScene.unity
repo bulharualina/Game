@@ -320,6 +320,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stick0008
       objectReference: {fileID: 0}
+    - target: {fileID: 7465540633861777439, guid: 0af637d967fc3df428f263b710ba9fc7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -753,6 +758,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Apple0002
+      objectReference: {fileID: 0}
+    - target: {fileID: 3669111238386894314, guid: b89bb999be8672b469a778573c42512f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
       objectReference: {fileID: 0}
     - target: {fileID: 4845696670743144195, guid: b89bb999be8672b469a778573c42512f,
         type: 3}
@@ -1945,6 +1955,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone0010
       objectReference: {fileID: 0}
+    - target: {fileID: 7587209056590063513, guid: 17d443a53ed52404bba6385816eef07e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2292,6 +2307,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone0007
       objectReference: {fileID: 0}
+    - target: {fileID: 7587209056590063513, guid: 17d443a53ed52404bba6385816eef07e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2499,6 +2519,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stone0009
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587209056590063513, guid: 17d443a53ed52404bba6385816eef07e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3146,6 +3171,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stick0004
       objectReference: {fileID: 0}
+    - target: {fileID: 7465540633861777439, guid: 0af637d967fc3df428f263b710ba9fc7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3219,6 +3249,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stick0003
+      objectReference: {fileID: 0}
+    - target: {fileID: 7465540633861777439, guid: 0af637d967fc3df428f263b710ba9fc7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3700,7 +3735,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e99557ffb58694f4e8253999e0f91695, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e2644acd57b58a740b8a65152cf8a7be, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4249,6 +4284,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stick0005
       objectReference: {fileID: 0}
+    - target: {fileID: 7465540633861777439, guid: 0af637d967fc3df428f263b710ba9fc7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4272,6 +4312,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mushroom0004
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498501608908670544, guid: fac8c14f4881f344ba194cca96ca4881,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
       objectReference: {fileID: 0}
     - target: {fileID: 8259047656733838327, guid: fac8c14f4881f344ba194cca96ca4881,
         type: 3}
@@ -4879,6 +4924,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3294795251714714478, guid: 55873a73fccbdf14586f4d879e560332,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1773220334}
     - targetCorrespondingSourceObject: {fileID: 3614285269690563367, guid: 55873a73fccbdf14586f4d879e560332,
         type: 3}
       insertIndex: -1
@@ -4939,6 +4988,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fb424b7caf94f4e95327236fe5fcd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &381781920 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3294795251714714478, guid: 55873a73fccbdf14586f4d879e560332,
+    type: 3}
+  m_PrefabInstance: {fileID: 381781909}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &399767795
 GameObject:
   m_ObjectHideFlags: 0
@@ -6034,6 +6089,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Mountains_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 155966, guid: 27a87b0e789e67d4e9a5a3d058c5d97f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 155966, guid: 27a87b0e789e67d4e9a5a3d058c5d97f, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 400120, guid: 27a87b0e789e67d4e9a5a3d058c5d97f, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.43
@@ -6385,6 +6448,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mushroom0002
       objectReference: {fileID: 0}
+    - target: {fileID: 7498501608908670544, guid: fac8c14f4881f344ba194cca96ca4881,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
+      objectReference: {fileID: 0}
     - target: {fileID: 8259047656733838327, guid: fac8c14f4881f344ba194cca96ca4881,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6502,6 +6570,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stick0002
+      objectReference: {fileID: 0}
+    - target: {fileID: 7465540633861777439, guid: 0af637d967fc3df428f263b710ba9fc7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7108,6 +7181,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stone0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587209056590063513, guid: 17d443a53ed52404bba6385816eef07e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8250,6 +8328,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Mountains_01 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 155966, guid: 27a87b0e789e67d4e9a5a3d058c5d97f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 155966, guid: 27a87b0e789e67d4e9a5a3d058c5d97f, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 400120, guid: 27a87b0e789e67d4e9a5a3d058c5d97f, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.43
@@ -8444,6 +8530,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stick0007
+      objectReference: {fileID: 0}
+    - target: {fileID: 7465540633861777439, guid: 0af637d967fc3df428f263b710ba9fc7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9115,6 +9206,14 @@ PrefabInstance:
     - target: {fileID: 155966, guid: 27a87b0e789e67d4e9a5a3d058c5d97f, type: 3}
       propertyPath: m_Name
       value: SM_Env_Mountains_01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 155966, guid: 27a87b0e789e67d4e9a5a3d058c5d97f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 155966, guid: 27a87b0e789e67d4e9a5a3d058c5d97f, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 400120, guid: 27a87b0e789e67d4e9a5a3d058c5d97f, type: 3}
       propertyPath: m_LocalScale.x
@@ -9835,6 +9934,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stone0005
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587209056590063513, guid: 17d443a53ed52404bba6385816eef07e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11019,7 +11123,7 @@ GameObject:
   - component: {fileID: 1033059232}
   m_Layer: 6
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -11162,6 +11266,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Carrot0002
+      objectReference: {fileID: 0}
+    - target: {fileID: 8849507836782414122, guid: 8ba098640da8a924a92cb902de86b7a2,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12207,6 +12316,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1175897347}
   m_CullTransparentMesh: 1
+--- !u!1 &1180393669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1180393670}
+  - component: {fileID: 1180393671}
+  m_Layer: 0
+  m_Name: ConstructionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1180393670
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180393669}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1381038824}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1180393671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180393669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee39de52959731b4a8cfbb18419543a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemToBeConstructed: {fileID: 1713492433896711060, guid: 54775a3b4f5ba0544b661dbf3cdf0723,
+    type: 3}
+  inConstructionMode: 0
+  constructionHoldingSpot: {fileID: 1773220333}
+  isValidPlacement: 0
+  selectingAGhost: 0
+  selectedGhost: {fileID: 0}
+  ghostSelectedMat: {fileID: 2100000, guid: 572799d3b3a63e942968e91377d8a923, type: 2}
+  ghostSemiTransparentMat: {fileID: 2100000, guid: 2e4135adf90c797478e99f59ac1c88de,
+    type: 2}
+  ghostFullTransparentMat: {fileID: 2100000, guid: 869f969759e29784bbfd8bf9989fd821,
+    type: 2}
+  allGhostsInExistence: []
+  itemToBeDestroyed: {fileID: 0}
+  placementOffsetY: 0.05
+  ghostScreenXPosition: 0.75
+  ghostScreenYPosition: 0.5
+  ghostWorldDistance: 5
 --- !u!1 &1182348438
 GameObject:
   m_ObjectHideFlags: 0
@@ -13563,6 +13734,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stick0006
       objectReference: {fileID: 0}
+    - target: {fileID: 7465540633861777439, guid: 0af637d967fc3df428f263b710ba9fc7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13747,6 +13923,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone0003
       objectReference: {fileID: 0}
+    - target: {fileID: 7587209056590063513, guid: 17d443a53ed52404bba6385816eef07e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13769,6 +13950,14 @@ PrefabInstance:
     - target: {fileID: 155966, guid: 27a87b0e789e67d4e9a5a3d058c5d97f, type: 3}
       propertyPath: m_Name
       value: SM_Env_Mountains_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 155966, guid: 27a87b0e789e67d4e9a5a3d058c5d97f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 155966, guid: 27a87b0e789e67d4e9a5a3d058c5d97f, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 400120, guid: 27a87b0e789e67d4e9a5a3d058c5d97f, type: 3}
       propertyPath: m_LocalScale.x
@@ -14115,6 +14304,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mushroom0001
       objectReference: {fileID: 0}
+    - target: {fileID: 7498501608908670544, guid: fac8c14f4881f344ba194cca96ca4881,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
+      objectReference: {fileID: 0}
     - target: {fileID: 8259047656733838327, guid: fac8c14f4881f344ba194cca96ca4881,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14204,8 +14398,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.2, y: -4}
-  m_SizeDelta: {x: 60, y: 20}
+  m_AnchoredPosition: {x: 2, y: -0.7304}
+  m_SizeDelta: {x: 84.8969, y: 13.4609}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1371258978
 MonoBehaviour:
@@ -14227,9 +14421,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Plank
-
-'
+  m_text: Plank x2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -14541,6 +14733,7 @@ Transform:
   - {fileID: 1223908654}
   - {fileID: 1418970475}
   - {fileID: 1141305267}
+  - {fileID: 1180393670}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1399822332
@@ -15621,6 +15814,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stick0001
       objectReference: {fileID: 0}
+    - target: {fileID: 7465540633861777439, guid: 0af637d967fc3df428f263b710ba9fc7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15694,6 +15892,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stone0011
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587209056590063513, guid: 17d443a53ed52404bba6385816eef07e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16083,6 +16286,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stick0009
       objectReference: {fileID: 0}
+    - target: {fileID: 7465540633861777439, guid: 0af637d967fc3df428f263b710ba9fc7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16151,7 +16359,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e2644acd57b58a740b8a65152cf8a7be, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 971adde3b7096a646a20eb6647f7cf14, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -16306,6 +16514,20 @@ MonoBehaviour:
     Req1amount: 1
     Req2amount: 0
     numOfReq: 1
+  FoundationBLP:
+    itemName: Foundation
+    Req1: Plank
+    Req2: 
+    Req1amount: 4
+    Req2amount: 0
+    numOfReq: 1
+  WallBLP:
+    itemName: Wall
+    Req1: Plank
+    Req2: 
+    Req1amount: 2
+    Req2amount: 0
+    numOfReq: 1
 --- !u!4 &1663552284
 Transform:
   m_ObjectHideFlags: 0
@@ -16321,74 +16543,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1381038824}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1666310368
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1363072781080117106, guid: 8ba098640da8a924a92cb902de86b7a2,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 294.23306
-      objectReference: {fileID: 0}
-    - target: {fileID: 1363072781080117106, guid: 8ba098640da8a924a92cb902de86b7a2,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.41
-      objectReference: {fileID: 0}
-    - target: {fileID: 1363072781080117106, guid: 8ba098640da8a924a92cb902de86b7a2,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 306.69193
-      objectReference: {fileID: 0}
-    - target: {fileID: 1363072781080117106, guid: 8ba098640da8a924a92cb902de86b7a2,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 1363072781080117106, guid: 8ba098640da8a924a92cb902de86b7a2,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 1363072781080117106, guid: 8ba098640da8a924a92cb902de86b7a2,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1363072781080117106, guid: 8ba098640da8a924a92cb902de86b7a2,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1363072781080117106, guid: 8ba098640da8a924a92cb902de86b7a2,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 1363072781080117106, guid: 8ba098640da8a924a92cb902de86b7a2,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1363072781080117106, guid: 8ba098640da8a924a92cb902de86b7a2,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8849507836782414122, guid: 8ba098640da8a924a92cb902de86b7a2,
-        type: 3}
-      propertyPath: m_Name
-      value: Carrot (2)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8ba098640da8a924a92cb902de86b7a2, type: 3}
 --- !u!1 &1688838071
 GameObject:
   m_ObjectHideFlags: 0
@@ -16706,6 +16860,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone0008
       objectReference: {fileID: 0}
+    - target: {fileID: 7587209056590063513, guid: 17d443a53ed52404bba6385816eef07e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16884,6 +17043,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Apple0001
       objectReference: {fileID: 0}
+    - target: {fileID: 3669111238386894314, guid: b89bb999be8672b469a778573c42512f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
+      objectReference: {fileID: 0}
     - target: {fileID: 4845696670743144195, guid: b89bb999be8672b469a778573c42512f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17014,6 +17178,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1773015916}
   m_CullTransparentMesh: 1
+--- !u!1 &1773220333
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1773220334}
+  m_Layer: 0
+  m_Name: ConstructionHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1773220334
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773220333}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 381781920}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1775952565
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17076,6 +17271,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stone0006
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587209056590063513, guid: 17d443a53ed52404bba6385816eef07e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17229,6 +17429,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stick0010
+      objectReference: {fileID: 0}
+    - target: {fileID: 7465540633861777439, guid: 0af637d967fc3df428f263b710ba9fc7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18156,6 +18361,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stick0011
       objectReference: {fileID: 0}
+    - target: {fileID: 7465540633861777439, guid: 0af637d967fc3df428f263b710ba9fc7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18372,6 +18582,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stick0012
       objectReference: {fileID: 0}
+    - target: {fileID: 7465540633861777439, guid: 0af637d967fc3df428f263b710ba9fc7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18580,6 +18795,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone0002
       objectReference: {fileID: 0}
+    - target: {fileID: 7587209056590063513, guid: 17d443a53ed52404bba6385816eef07e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18654,6 +18874,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stone0004
       objectReference: {fileID: 0}
+    - target: {fileID: 7587209056590063513, guid: 17d443a53ed52404bba6385816eef07e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18727,6 +18952,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Carrot0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 8849507836782414122, guid: 8ba098640da8a924a92cb902de86b7a2,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19259,6 +19489,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mushroom0003
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498501608908670544, guid: fac8c14f4881f344ba194cca96ca4881,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pickable
       objectReference: {fileID: 0}
     - target: {fileID: 8259047656733838327, guid: fac8c14f4881f344ba194cca96ca4881,
         type: 3}
@@ -20441,4 +20676,3 @@ SceneRoots:
   - {fileID: 661887764}
   - {fileID: 3763014210456014055}
   - {fileID: 782370658}
-  - {fileID: 1666310368}
