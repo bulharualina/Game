@@ -65,7 +65,8 @@ public class ChoppableTree : MonoBehaviour
             if (playerInRange && canBeChopped && playerAnimation != null && playerAnimation.TryRegisterHit())
             { 
                 StartCoroutine(ProcessHitDelayed());
-               
+              //  PlayerSurvivalStats.Instance.currentCalories -= caloriesSpentChopping;//NU MERGE
+
 
             }
         }
@@ -98,8 +99,13 @@ public class ChoppableTree : MonoBehaviour
        
         if (treeHealth > 0)
         {
+            if (PlayerSurvivalStats.Instance != null)
+            {
+                PlayerSurvivalStats.Instance.currentCalories -= caloriesSpentChopping;
+            }
+
             treeHealth -= 1;
-            PlayerSurvivalStats.Instance.currentCalories -= caloriesSpentChopping;//NU MERGE
+          
 
             if (GlobalState.Instance != null && playerInRange) // Ensure player is still looking at this tree
             {

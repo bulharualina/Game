@@ -93,6 +93,8 @@ MonoBehaviour:
   treeMaxHealth: 4
   treeHealth: 0
   chopHolderUI: {fileID: 0}
+  hitDelay: 0.6
+  caloriesSpentChopping: 20
 --- !u!1 &5387520172699066133
 GameObject:
   m_ObjectHideFlags: 0
