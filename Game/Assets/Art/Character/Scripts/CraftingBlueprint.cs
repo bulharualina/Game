@@ -27,4 +27,17 @@ public class CraftingBlueprint
         Req1 = r1;
         Req2 = r2;
     }
+
+    public CraftingBlueprint(string name, int reqNum, string r1, int r1num)
+    {
+        itemName = name;
+
+        numOfReq = reqNum;
+
+        Req1amount = r1num;
+       
+
+        Req1 = r1;
+        
+    }
 }

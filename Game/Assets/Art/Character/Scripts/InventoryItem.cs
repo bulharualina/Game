@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
+using System;
 
 public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
@@ -30,7 +31,11 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public bool isEquippable;
     private GameObject _itemPendingEquipping;
     public bool isInsideQuickSlot;//is in slot
+
     public bool isSelected;//item  selected
+
+    public bool isUsable;
+    public GameObject itemPendingToBeUsed;
 
     private void Awake()
     {
@@ -108,7 +113,28 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 isInsideQuickSlot = true;
 
             }
+
+            if (isUsable) 
+            {
+                itemPendingToBeUsed = gameObject;
+
+                UseItem();
+            }
         }
+
+    }
+
+    private void UseItem()
+    {
+        _itemInfoUI.SetActive(false);
+
+        InventorySystem.Instance.isOpen = false;
+        InventorySystem.Instance.inventoryScreenUI.SetActive(false);
+
+        CraftingSystem.Instance.isOpen = false;
+        CraftingSystem.Instance.craftingScreenUI.SetActive(false);
+        CraftingSystem.Instance.toolsScreenUI.SetActive(false);
+        CraftingSystem.Instance.constructionsScreenUI.SetActive(false);
 
     }
 
@@ -118,6 +144,12 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             if (isConsumable && _itemPendingConsumption == gameObject)
+            {
+                DestroyImmediate(gameObject);
+                InventorySystem.Instance.ReCalculateList();
+                CraftingSystem.Instance.RefreshNeededItems();
+            }
+            if (isUsable && itemPendingToBeUsed == gameObject)
             {
                 DestroyImmediate(gameObject);
                 InventorySystem.Instance.ReCalculateList();
