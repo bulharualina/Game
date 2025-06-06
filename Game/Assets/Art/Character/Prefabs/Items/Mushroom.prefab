@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3669111238386894314
+--- !u!1 &7498501608908670544
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4845696670743144195}
-  - component: {fileID: 2637465834809714399}
-  - component: {fileID: 6265334479665438049}
-  - component: {fileID: 7949254174409508486}
-  - component: {fileID: 4598112764755466687}
-  - component: {fileID: 8764140906230107772}
+  - component: {fileID: 8259047656733838327}
+  - component: {fileID: 749668161514577122}
+  - component: {fileID: 1198925175645448904}
+  - component: {fileID: 7354525217032641940}
+  - component: {fileID: 525390224505814379}
+  - component: {fileID: 2306823482360169211}
   m_Layer: 7
-  m_Name: Apple
+  m_Name: Mushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4845696670743144195
+--- !u!4 &8259047656733838327
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3669111238386894314}
+  m_GameObject: {fileID: 7498501608908670544}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6680298, y: 0.077, z: -1.5775452}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2637465834809714399
+--- !u!33 &749668161514577122
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3669111238386894314}
-  m_Mesh: {fileID: 4300000, guid: 36b0d2c494f440c4ea6a910debf532c4, type: 3}
---- !u!23 &6265334479665438049
+  m_GameObject: {fileID: 7498501608908670544}
+  m_Mesh: {fileID: 4300000, guid: 438d9318161c27f4c9a2c83836511408, type: 3}
+--- !u!23 &1198925175645448904
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3669111238386894314}
+  m_GameObject: {fileID: 7498501608908670544}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -86,35 +86,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7949254174409508486
-MeshCollider:
+--- !u!114 &7354525217032641940
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3669111238386894314}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_GameObject: {fileID: 7498501608908670544}
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43087991014633218, guid: 71afb9abd7199a446944f6f11b5dee2b, type: 2}
---- !u!65 &4598112764755466687
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b969107a1bde3d4aac3949b06eb1cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemName: Mushroom
+--- !u!65 &525390224505814379
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3669111238386894314}
+  m_GameObject: {fileID: 7498501608908670544}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -127,18 +118,26 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2, z: 1}
+  m_Size: {x: 4, y: 2, z: 4}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8764140906230107772
-MonoBehaviour:
+--- !u!65 &2306823482360169211
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3669111238386894314}
+  m_GameObject: {fileID: 7498501608908670544}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b969107a1bde3d4aac3949b06eb1cbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _itemName: Apple
+  serializedVersion: 3
+  m_Size: {x: 0.62762415, y: 0.60531765, z: 0.5440184}
+  m_Center: {x: -0.0000072568655, y: 0.23833677, z: 0.00022804737}

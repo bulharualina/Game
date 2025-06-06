@@ -117,7 +117,7 @@ MonoBehaviour:
   isTrashable: 1
   thisName: Apple
   thisDescription: A crisp, sweet fruit, vibrant in color and refreshingly juicy.
-  thisFunctionality: Restores hunger.
+  thisFunctionality: Restores hunger
   isConsumable: 1
   healthEffect: 10
   caloriesEffect: 25

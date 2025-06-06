@@ -116,9 +116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrashable: 1
   thisName: Log
-  thisDescription: A sturdy section of a felled tree, rough-barked and ready for
-    use.
-  thisFunctionality: Collectible resource item, obtained by chopping trees.
+  thisDescription: A sturdy section of a felled tree
+  thisFunctionality: Obtained by chopping trees
   isConsumable: 0
   healthEffect: 0
   caloriesEffect: 0

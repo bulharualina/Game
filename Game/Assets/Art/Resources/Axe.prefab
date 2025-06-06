@@ -117,8 +117,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrashable: 0
   thisName: Axe
-  thisDescription: Sharp steel on sturdy wood, a weighty, balanced felling tool.
-  thisFunctionality: Fells trees, splits wood, delivers heavy blows.
+  thisDescription: Weapon
+  thisFunctionality: Fells trees,kills animals
   isConsumable: 0
   healthEffect: 0
   caloriesEffect: 0

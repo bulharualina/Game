@@ -116,9 +116,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrashable: 1
   thisName: Stick
-  thisDescription: A light, smooth length of wood, versatile and readily found.
-  thisFunctionality: Crafts basic gear.
+  thisDescription: A light, smooth length of wood
+  thisFunctionality: Crafts basic gear
   isConsumable: 0
   healthEffect: 0
   caloriesEffect: 0
   hydrationEffect: 0
+  isEquippable: 0
+  isInsideQuickSlot: 0
+  isSelected: 0

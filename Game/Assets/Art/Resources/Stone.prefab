@@ -116,9 +116,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrashable: 1
   thisName: Stone
-  thisDescription: A common, rough rock, solid in the hand.
-  thisFunctionality: Crafts tools.
+  thisDescription: A common, rough rock
+  thisFunctionality: Crafts tools
   isConsumable: 0
   healthEffect: 0
   caloriesEffect: 0
   hydrationEffect: 0
+  isEquippable: 0
+  isInsideQuickSlot: 0
+  isSelected: 0
