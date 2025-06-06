@@ -117,7 +117,7 @@ MonoBehaviour:
   isTrashable: 1
   thisName: Mushroom
   thisDescription: A tender, savory fungi
-  thisFunctionality: Restores hunger
+  thisFunctionality: Right-click to consume
   isConsumable: 1
   healthEffect: 5
   caloriesEffect: 15
@@ -125,3 +125,4 @@ MonoBehaviour:
   isEquippable: 0
   isInsideQuickSlot: 0
   isSelected: 0
+  isUsable: 0

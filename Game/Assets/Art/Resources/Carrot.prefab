@@ -117,7 +117,7 @@ MonoBehaviour:
   isTrashable: 1
   thisName: Carrot
   thisDescription: A crunchy, earthy root
-  thisFunctionality: Restores hunger
+  thisFunctionality: Right-click to consume
   isConsumable: 1
   healthEffect: 8
   caloriesEffect: 20
@@ -125,3 +125,4 @@ MonoBehaviour:
   isEquippable: 0
   isInsideQuickSlot: 0
   isSelected: 0
+  isUsable: 0

@@ -29,6 +29,9 @@ public class ConstructionManager : MonoBehaviour
     [SerializeField] private float ghostScreenXPosition = 0.75f; // 0.0 is left, 1.0 is right
     [SerializeField] private float ghostScreenYPosition = 0.5f;  // 0.0 is bottom, 1.0 is top
     [SerializeField] private float ghostWorldDistance = 5.0f;
+
+    public GameObject constructionUI;
+    public GameObject player;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -40,36 +43,7 @@ public class ConstructionManager : MonoBehaviour
             Instance = this;
         }
     }
-   /* public void BeginConstruction(string itemName, GameObject inventoryItem)
-    {
-        // Store the inventory item that needs to be destroyed after placement
-        itemToBeDestroyed = inventoryItem;
-
-        GameObject item = Instantiate(Resources.Load<GameObject>(itemName));
-        if (item == null)
-        {
-            Debug.LogError($"Failed to load itemToConstruct prefab: {itemName}. Make sure it's in a Resources folder.");
-            return;
-        }
-
-        item.name = itemName;
-        item.transform.SetParent(constructionHoldingSpot.transform, false);
-        itemToBeConstructed = item;
-        itemToBeConstructed.gameObject.tag = "activeConstructable";
-
-        // Disabling the non-trigger collider so our mouse can cast a ray
-        Constructable constructableComp = itemToBeConstructed.GetComponent<Constructable>();
-        if (constructableComp != null && constructableComp.solidCollider != null)
-        {
-            constructableComp.solidCollider.enabled = false;
-        }
-        else
-        {
-            Debug.LogWarning("Constructable component or solidCollider not found on " + itemName + " prefab.");
-        }
-
-        inConstructionMode = true;
-    }*/
+  
 
     public void ActivateConstructionPlacement(string itemToConstruct)
     {
@@ -177,19 +151,31 @@ public class ConstructionManager : MonoBehaviour
 
     private void Update()
     {
+        if (inConstructionMode)
+        {
+            constructionUI.SetActive(true);
+        }
+        else 
+        {
+            constructionUI.SetActive(false);
+        }
 
         if (itemToBeConstructed != null && inConstructionMode)
         {
-            if (CheckValidConstructionPosition())
+            if (itemToBeConstructed.name == "FoundationModel")
             {
-                isValidPlacement = true;
-                itemToBeConstructed.GetComponent<Constructable>().SetValidColor();
+                if (CheckValidConstructionPosition())
+                {
+                    isValidPlacement = true;
+                    itemToBeConstructed.GetComponent<Constructable>().SetValidColor();
+                }
+                else
+                {
+                    isValidPlacement = false;
+                    itemToBeConstructed.GetComponent<Constructable>().SetInvalidColor();
+                }
             }
-            else
-            {
-                isValidPlacement = false;
-                itemToBeConstructed.GetComponent<Constructable>().SetInvalidColor();
-            }
+           
 
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -197,7 +183,13 @@ public class ConstructionManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 var selectionTransform = hit.transform;
-                if (selectionTransform.gameObject.CompareTag("Ghost"))
+                if (selectionTransform.gameObject.CompareTag("Ghost") && itemToBeConstructed.name == "FoundationModel")
+                {
+                    itemToBeConstructed.SetActive(false);
+                    selectingAGhost = true;
+                    selectedGhost = selectionTransform.gameObject;
+                }
+                else if (selectionTransform.gameObject.CompareTag("wallGhost") && itemToBeConstructed.name == "WallModel") 
                 {
                     itemToBeConstructed.SetActive(false);
                     selectingAGhost = true;
@@ -206,6 +198,7 @@ public class ConstructionManager : MonoBehaviour
                 else
                 {
                     itemToBeConstructed.SetActive(true);
+                    selectedGhost = null;
                     selectingAGhost = false;
                 }
 
@@ -219,21 +212,26 @@ public class ConstructionManager : MonoBehaviour
         // Left Mouse Click to Place item
         if (Input.GetMouseButtonDown(0) && inConstructionMode)
         {
-            if (isValidPlacement && selectedGhost == false) // We don't want the freestyle to be triggered when we select a ghost.
+            if (isValidPlacement && selectedGhost == false && itemToBeConstructed.name == "FoundationModel") // We don't want the freestyle to be triggered when we select a ghost.
             {
                 PlaceItemFreeStyle();
+                DestroyItem(itemToBeDestroyed);
             }
 
             if (selectingAGhost)
             {
                 PlaceItemInGhostPosition(selectedGhost);
+                DestroyItem(itemToBeDestroyed);
             }
         }
-        // Right Mouse Click to Cancel                      //TODO - don't destroy the ui item until you actually placed it.
-        if (Input.GetMouseButtonDown(0) && isValidPlacement)
-        {     // Left Mouse Button
-
-
+        // Right Mouse Click to Cancel                      
+        if (Input.GetKeyDown(KeyCode.X) && isValidPlacement)
+        {    
+            itemToBeDestroyed.SetActive(true);
+            itemToBeDestroyed = null;
+            DestroyItem(itemToBeConstructed);
+            itemToBeConstructed = null;
+            inConstructionMode = false;
 
         }
     }
@@ -255,24 +253,37 @@ public class ConstructionManager : MonoBehaviour
         itemToBeConstructed.transform.rotation = ghostRotation;
 
         // Making the Ghost Children to no longer be children of this item
-        itemToBeConstructed.GetComponent<Constructable>().ExtractGhostMembers();
+      
         // Setting the default color/material
-        itemToBeConstructed.GetComponent<Constructable>().SetDefaultColor();
-        itemToBeConstructed.tag = "placedFoundation";
+
 
         // Enabling back the solider collider that we disabled earlier
         itemToBeConstructed.GetComponent<Constructable>().solidCollider.enabled = true;
+        itemToBeConstructed.GetComponent<Constructable>().SetDefaultColor();
+
+        if (itemToBeConstructed.name == "FoundationModel")
+        {
+            itemToBeConstructed.GetComponent<Constructable>().ExtractGhostMembers();
+
+            itemToBeConstructed.tag = "placedFoundation";
+            GetAllGhosts(itemToBeConstructed);
+            PerformGhostDeletionScan();
+        }
+        else 
+        {
+            itemToBeConstructed.tag = "placedWall";
+            DestroyItem(itemToBeConstructed);
+        }
 
         //Adding all the ghosts of this item into the manager's ghost bank
-        GetAllGhosts(itemToBeConstructed);
-        PerformGhostDeletionScan();
+     
 
         itemToBeConstructed = null;
 
         inConstructionMode = false;
     }
 
-
+    
     private void PlaceItemFreeStyle()
     {
         // Setting the parent to be the root of our scene
@@ -296,6 +307,12 @@ public class ConstructionManager : MonoBehaviour
         inConstructionMode = false;
     }
 
+    void DestroyItem(GameObject item)
+    {
+        DestroyImmediate(item);
+        InventorySystem.Instance.ReCalculateList();
+        CraftingSystem.Instance.RefreshNeededItems();
+    }
     private bool CheckValidConstructionPosition()
     {
         if (itemToBeConstructed != null)
