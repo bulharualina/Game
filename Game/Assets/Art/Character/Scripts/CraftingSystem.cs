@@ -25,6 +25,11 @@ public class CraftingSystem : MonoBehaviour
     Button _craftFoundationBTN;
     Button _craftWallBTN;
 
+    //Back Buttons
+    Button _toolsBackBTN;
+    Button _constructionBackBTN;
+    Button _refineProcessBackBTN;
+
 
 
     //Req text
@@ -94,6 +99,24 @@ public class CraftingSystem : MonoBehaviour
         _PlankReq = refineProcessScreenUI.transform.Find("Plank").transform.Find("req").GetComponent<TextMeshProUGUI>();
         _craftPlankBTN = refineProcessScreenUI.transform.Find("Plank").transform.Find("Button").GetComponent<Button>();
         _craftPlankBTN.onClick.AddListener(delegate { CraftAnyItem(PlankBLP); });
+
+        //Back buttons
+        _toolsBackBTN = toolsScreenUI.transform.Find("BackButton").GetComponent<Button>();
+        _toolsBackBTN.onClick.AddListener(delegate { BackToCraftingCategories(); });
+
+        _constructionBackBTN = constructionsScreenUI.transform.Find("BackButton").GetComponent<Button>();
+        _constructionBackBTN.onClick.AddListener(delegate { BackToCraftingCategories(); });
+
+        _refineProcessBackBTN = refineProcessScreenUI.transform.Find("BackButton").GetComponent<Button>();
+        _refineProcessBackBTN.onClick.AddListener(delegate { BackToCraftingCategories(); });
+    }
+
+    private void BackToCraftingCategories()
+    {
+        toolsScreenUI.SetActive(false);
+        constructionsScreenUI.SetActive(false);
+        refineProcessScreenUI.SetActive(false);
+        craftingScreenUI.SetActive(true);
     }
 
     private void OpenRefineProcessCategory()

@@ -174,6 +174,6 @@ MonoBehaviour:
   detectedGhostMemeber: 0
   redMaterial: {fileID: 2100000, guid: edcc06a372291c54a870262120a997da, type: 2}
   greenMaterial: {fileID: 2100000, guid: 572799d3b3a63e942968e91377d8a923, type: 2}
-  defaultMaterial: {fileID: 2100000, guid: 884e52f65a2ae7048b4d5c073c6efcde, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: b069e95af91e2d249a968187e3586f1f, type: 2}
   ghostList: []
   solidCollider: {fileID: 1530260762545466596}

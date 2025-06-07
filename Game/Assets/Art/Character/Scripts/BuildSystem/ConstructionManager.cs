@@ -246,8 +246,8 @@ public class ConstructionManager : MonoBehaviour
 
         Vector3 ghostPosition = copyOfGhost.transform.position;
         Quaternion ghostRotation = copyOfGhost.transform.rotation;
-        Debug.Log($"Placing {itemToBeConstructed.name} at ghost position: {ghostPosition}, rotation: {ghostRotation.eulerAngles}");
-        Debug.Log($"Ghost name: {copyOfGhost.name}, Ghost local position: {copyOfGhost.transform.localPosition}, Ghost local rotation: {copyOfGhost.transform.localEulerAngles}");
+       // Debug.Log($"Placing {itemToBeConstructed.name} at ghost position: {ghostPosition}, rotation: {ghostRotation.eulerAngles}");
+        //Debug.Log($"Ghost name: {copyOfGhost.name}, Ghost local position: {copyOfGhost.transform.localPosition}, Ghost local rotation: {copyOfGhost.transform.localEulerAngles}");
 
         selectedGhost.gameObject.SetActive(false);
 
