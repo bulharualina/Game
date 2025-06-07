@@ -175,8 +175,12 @@ public class ConstructionManager : MonoBehaviour
                     itemToBeConstructed.GetComponent<Constructable>().SetInvalidColor();
                 }
             }
-           
 
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                itemToBeConstructed.transform.Rotate(0, 90, 0); // Rotate 90 degrees on the Y-axis
+
+            }
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -194,6 +198,7 @@ public class ConstructionManager : MonoBehaviour
                     itemToBeConstructed.SetActive(false);
                     selectingAGhost = true;
                     selectedGhost = selectionTransform.gameObject;
+                   
                 }
                 else
                 {
@@ -225,7 +230,7 @@ public class ConstructionManager : MonoBehaviour
             }
         }
         // Right Mouse Click to Cancel                      
-        if (Input.GetKeyDown(KeyCode.X) && isValidPlacement)
+        if (Input.GetKeyDown(KeyCode.X))
         {    
             itemToBeDestroyed.SetActive(true);
             itemToBeDestroyed = null;
@@ -241,6 +246,8 @@ public class ConstructionManager : MonoBehaviour
 
         Vector3 ghostPosition = copyOfGhost.transform.position;
         Quaternion ghostRotation = copyOfGhost.transform.rotation;
+        Debug.Log($"Placing {itemToBeConstructed.name} at ghost position: {ghostPosition}, rotation: {ghostRotation.eulerAngles}");
+        Debug.Log($"Ghost name: {copyOfGhost.name}, Ghost local position: {copyOfGhost.transform.localPosition}, Ghost local rotation: {copyOfGhost.transform.localEulerAngles}");
 
         selectedGhost.gameObject.SetActive(false);
 
@@ -269,10 +276,11 @@ public class ConstructionManager : MonoBehaviour
             GetAllGhosts(itemToBeConstructed);
             PerformGhostDeletionScan();
         }
-        else 
+        else
         {
+            
             itemToBeConstructed.tag = "placedWall";
-            DestroyItem(itemToBeConstructed);
+            DestroyItem(selectedGhost);         
         }
 
         //Adding all the ghosts of this item into the manager's ghost bank
