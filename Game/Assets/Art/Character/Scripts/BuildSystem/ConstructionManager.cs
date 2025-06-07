@@ -61,6 +61,8 @@ public class ConstructionManager : MonoBehaviour
 
         // Actiavting Construction mode
         inConstructionMode = true;
+        selectedGhost = null;
+        selectingAGhost = false;
     }
 
     private void GetAllGhosts(GameObject itemToBeConstructed)
@@ -176,11 +178,7 @@ public class ConstructionManager : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                itemToBeConstructed.transform.Rotate(0, 90, 0); // Rotate 90 degrees on the Y-axis
-
-            }
+        
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -193,12 +191,18 @@ public class ConstructionManager : MonoBehaviour
                     selectingAGhost = true;
                     selectedGhost = selectionTransform.gameObject;
                 }
-                else if (selectionTransform.gameObject.CompareTag("wallGhost") && itemToBeConstructed.name == "WallModel") 
+                else if (selectionTransform.gameObject.CompareTag("wallGhost") && itemToBeConstructed.name == "WallModel")
                 {
                     itemToBeConstructed.SetActive(false);
                     selectingAGhost = true;
                     selectedGhost = selectionTransform.gameObject;
-                   
+
+                } 
+                else if (selectionTransform.gameObject.CompareTag("ceilingGhost") && itemToBeConstructed.name == "CeilingModel")
+                {
+                    itemToBeConstructed.SetActive(false);
+                    selectingAGhost = true;
+                    selectedGhost = selectionTransform.gameObject;
                 }
                 else
                 {
@@ -276,11 +280,19 @@ public class ConstructionManager : MonoBehaviour
             GetAllGhosts(itemToBeConstructed);
             PerformGhostDeletionScan();
         }
+        else if (itemToBeConstructed.name == "CeilingModel")
+        {
+
+            itemToBeConstructed.GetComponent<Constructable>().ExtractGhostMembers();
+
+            itemToBeConstructed.tag = "placedCeiling";
+            GetAllGhosts(itemToBeConstructed);
+            PerformGhostDeletionScan();
+        }
         else
         {
-            
             itemToBeConstructed.tag = "placedWall";
-            DestroyItem(selectedGhost);         
+            DestroyItem(selectedGhost);
         }
 
         //Adding all the ghosts of this item into the manager's ghost bank

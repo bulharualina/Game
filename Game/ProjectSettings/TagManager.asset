@@ -16,6 +16,8 @@ TagManager:
   - placedFoundation
   - wallGhost
   - placedWall
+  - ceilingGhost
+  - placedCeiling
   layers:
   - Default
   - TransparentFX

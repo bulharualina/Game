@@ -24,6 +24,7 @@ public class CraftingSystem : MonoBehaviour
     Button _craftPlankBTN;
     Button _craftFoundationBTN;
     Button _craftWallBTN;
+    Button _craftCeilingBTN;
 
     //Back Buttons
     Button _toolsBackBTN;
@@ -37,6 +38,7 @@ public class CraftingSystem : MonoBehaviour
     TextMeshProUGUI _PlankReq;
     TextMeshProUGUI _FoundationReq;
     TextMeshProUGUI _WallReq;
+    TextMeshProUGUI _CeilingReq;
 
     public bool isOpen;
 
@@ -47,6 +49,7 @@ public class CraftingSystem : MonoBehaviour
     public CraftingBlueprint PlankBLP = new CraftingBlueprint("Plank",1,"Log",1);
     public CraftingBlueprint FoundationBLP = new CraftingBlueprint("Foundation",1, "Plank", 4);
     public CraftingBlueprint WallBLP = new CraftingBlueprint("Wall", 1, "Plank", 2);
+    public CraftingBlueprint CeilingBLP = new CraftingBlueprint("Ceiling",1,"Plank",4);
     public static CraftingSystem Instance { get; set; }
 
 
@@ -93,6 +96,12 @@ public class CraftingSystem : MonoBehaviour
         _WallReq = constructionsScreenUI.transform.Find("Wall").transform.Find("req").GetComponent<TextMeshProUGUI>();
         _craftWallBTN = constructionsScreenUI.transform.Find("Wall").transform.Find("Button").GetComponent<Button>();
         _craftWallBTN.onClick.AddListener(delegate { CraftAnyItem(WallBLP); });
+
+        //Ceiling
+        _CeilingReq = constructionsScreenUI.transform.Find("Ceiling").transform.Find("req").GetComponent <TextMeshProUGUI>();
+        _craftCeilingBTN = constructionsScreenUI.transform.Find("Ceiling").transform.Find("Button").GetComponent<Button>();
+        _craftCeilingBTN.onClick.AddListener(delegate { CraftAnyItem(CeilingBLP); });
+
 
         //-----Refine & Process-----
         //Plank
@@ -252,6 +261,17 @@ public class CraftingSystem : MonoBehaviour
         else
         {
             _craftWallBTN.gameObject.SetActive(false);
+        }
+
+        //Ceiling
+        _CeilingReq.text = "4 Plank [" + plank_count + "]";
+        if (plank_count >= 4)
+        {
+            _craftCeilingBTN.gameObject.SetActive(true);
+        }
+        else
+        {
+            _craftCeilingBTN.gameObject.SetActive(false);
         }
     }
 }
