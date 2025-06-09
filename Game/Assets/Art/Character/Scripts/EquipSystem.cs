@@ -211,7 +211,21 @@ public class EquipSystem : MonoBehaviour
             return false;
         }
     }
-
+    internal bool IsHoldingWeapon() 
+    {
+        if (selectedItem != null) 
+        {
+            if (selectedItem.GetComponent<Weapon>() != null)
+            {
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
+        }
+        return false;
+    }
     internal int GetWeaponDamage()
     {
         if (selectedItem != null)

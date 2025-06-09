@@ -24,6 +24,7 @@ public class InventorySystem : MonoBehaviour
 
     //pickup PopUp
     public GameObject pickupPopUp;
+    public GameObject inventoryFullPopUp;
     public TextMeshProUGUI pickupName;
     public Image pickupImage;
 
@@ -80,14 +81,9 @@ public class InventorySystem : MonoBehaviour
 
     public void AddToInventory(string itemName)
     {
-        //if (!SaveManager.Instance.isLoading) 
-       // { 
-         //   //play sound
-       // }
+      
          _slotToEquip = FindNextEmptySlot();
-        //Debug.Log($"[InventorySystem] Attempting to load item: '{itemName}'");
-        //GameObject itemPrefab = Resources.Load<GameObject>(itemName);
-        
+   
         _itemToAdd = (GameObject)Instantiate(Resources.Load<GameObject>(itemName), _slotToEquip.transform.position, _slotToEquip.transform.rotation);
        
 
@@ -145,10 +141,13 @@ public class InventorySystem : MonoBehaviour
 
         if (counter == 15)
         {
+            inventoryFullPopUp.SetActive(true);
             return true;
+            
         }
         else
         {
+            inventoryFullPopUp.SetActive(false);
             return false;
         }
     }

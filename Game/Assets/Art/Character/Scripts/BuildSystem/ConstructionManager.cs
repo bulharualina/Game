@@ -24,8 +24,8 @@ public class ConstructionManager : MonoBehaviour
     // so the manager can monitor them for various operations
     public List<GameObject> allGhostsInExistence = new List<GameObject>();
     public GameObject itemToBeDestroyed;
-    [SerializeField] private float placementOffsetY = 0.05f; // Small offset above ground when placing
-    // NEW: Parameters for screen positioning of the ghost
+    //[SerializeField] private float placementOffsetY = 0.05f; // Small offset above ground when placing
+    //  Parameters for screen positioning of the ghost
     [SerializeField] private float ghostScreenXPosition = 0.75f; // 0.0 is left, 1.0 is right
     [SerializeField] private float ghostScreenYPosition = 0.5f;  // 0.0 is bottom, 1.0 is top
     [SerializeField] private float ghostWorldDistance = 5.0f;
@@ -178,11 +178,11 @@ public class ConstructionManager : MonoBehaviour
                 }
             }
 
-        
 
+            //Vector3 screenCenter = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~0))
             {
                 var selectionTransform = hit.transform;
                 if (selectionTransform.gameObject.CompareTag("Ghost") && itemToBeConstructed.name == "FoundationModel")
