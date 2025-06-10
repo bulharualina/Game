@@ -437,10 +437,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c50627c984c5e8f47a786ca21c5433d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalName: 
+  animalName: Chicken
   playerInRange: 0
   animalHealth: 0
-  animalMaxHealth: 0
+  animalMaxHealth: 40
 --- !u!65 &2820635022735977419
 BoxCollider:
   m_ObjectHideFlags: 0
