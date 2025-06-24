@@ -10,7 +10,7 @@ public class MenuManager : MonoBehaviour
     public GameObject uiCanvas;
     public GameObject menu;
     public GameObject saveMenu;
-    public GameObject settingsMenu;
+    public GameObject infoMenu;
 
 
     public bool isOpen;
@@ -29,17 +29,17 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M) && !isOpen)
+        if (Input.GetKeyDown(KeyCode.P) && !isOpen)
         {
             uiCanvas.SetActive(false);
             menuCanvas.SetActive(true);
             isOpen = true;
 
         }
-        else if (Input.GetKeyDown(KeyCode.M) && isOpen)
+        else if (Input.GetKeyDown(KeyCode.P) && isOpen)
         {
             saveMenu.SetActive(false);
-            settingsMenu.SetActive(false);
+            infoMenu.SetActive(false);
             menu.SetActive(true);
 
             uiCanvas.SetActive(true);

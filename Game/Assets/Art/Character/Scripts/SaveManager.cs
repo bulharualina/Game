@@ -60,16 +60,16 @@ public class SaveManager : MonoBehaviour
         float[] playerSurvivStats = new float[3];
         if (PlayerSurvivalStats.Instance != null)
         {
-            playerSurvivStats[0] = PlayerSurvivalStats.Instance.currentHealth;
-            playerSurvivStats[1] = PlayerSurvivalStats.Instance.currentCalories;
-            playerSurvivStats[2] = PlayerSurvivalStats.Instance.currentHydrationPercent;
+            playerSurvivStats[0] = PlayerSurvivalStats.Instance.currentCalories;
+            playerSurvivStats[1] = PlayerSurvivalStats.Instance.currentHydrationPercent;
+            
         }
         else
         {
             Debug.LogError("PlayerSurvivalStats.Instance is null when trying to get player survival stats for saving.");
             playerSurvivStats[0] = 0f;
             playerSurvivStats[1] = 0f;
-            playerSurvivStats[2] = 0f;
+           
         }
 
         float[] playerRotationAndPosition = new float[6];
@@ -172,9 +172,8 @@ public class SaveManager : MonoBehaviour
         if (PlayerSurvivalStats.Instance != null)
         {
                
-            PlayerSurvivalStats.Instance.setHealth(playerData.playerSurvivStats[0]);
-            PlayerSurvivalStats.Instance.setCalories(playerData.playerSurvivStats[1]);
-            PlayerSurvivalStats.Instance.setHydration(playerData.playerSurvivStats[2]);
+            PlayerSurvivalStats.Instance.setCalories(playerData.playerSurvivStats[0]);
+            PlayerSurvivalStats.Instance.setHydration(playerData.playerSurvivStats[1]);
                
 
                 
@@ -287,37 +286,7 @@ public class SaveManager : MonoBehaviour
     }
     #endregion
 
-    #region Settings
-
-    #region Volume
-    [System.Serializable]
-    public class VolumeSettings 
-    {
-        public float musicVolume;
-        public float effectsVolume;
-        public float masterVolume;
-    }
-
-    public void SaveVolumeSettings(float music, float effects, float master)
-    {
-        VolumeSettings volumeSettings = new VolumeSettings()
-        {
-            musicVolume = music,
-            effectsVolume = effects,
-            masterVolume = master
-        };
-
-        PlayerPrefs.SetString("Volume",JsonUtility.ToJson(volumeSettings));
-        PlayerPrefs.Save();
-    }
-
-    public VolumeSettings LoadVolumeSettings() 
-    {
-        return JsonUtility.FromJson<VolumeSettings>(PlayerPrefs.GetString("Volume"));
-    }
-    #endregion
-
-    #endregion
+  
 
     #region Utility
 

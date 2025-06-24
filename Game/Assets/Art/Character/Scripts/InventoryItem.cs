@@ -23,7 +23,6 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private GameObject _itemPendingConsumption;
     public bool isConsumable;
 
-    public float healthEffect;
     public float caloriesEffect;
     public float hydrationEffect;
 
@@ -104,7 +103,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             {
                 // Setting this specific gameobject to be the item we want to destroy later
                 _itemPendingConsumption = gameObject;
-                consumingFunction(healthEffect, caloriesEffect, hydrationEffect);
+                consumingFunction(caloriesEffect, hydrationEffect);
             }
 
             if (isEquippable && !isInsideQuickSlot && !EquipSystem.Instance.CheckIfFull())
@@ -177,7 +176,7 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
     }
 
-    private void consumingFunction(float healthEffect, float caloriesEffect, float hydrationEffect)
+    private void consumingFunction(float caloriesEffect, float hydrationEffect)
     {
         Debug.Log("Consuming Function called for item: " + thisName);
         _itemInfoUI.SetActive(false);
@@ -189,40 +188,13 @@ public class InventoryItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             return; // Stop execution if instance is null to prevent NRE
         }
 
-        healthEffectCalculation(healthEffect);
+       
 
         caloriesEffectCalculation(caloriesEffect);
 
         hydrationEffectCalculation(hydrationEffect);
         Debug.Log("Consumption effects applied (attempted) for " + thisName + ".");
     }
-
-
-    private static void healthEffectCalculation(float healthEffect)
-    {
-        // --- Health --- //
-        Debug.Log("Applying Health Effect: " + healthEffect);
-        if (PlayerSurvivalStats.Instance == null)
-        {
-            Debug.LogError("PlayerSurvivalStats.Instance is NULL inside healthEffectCalculation!");
-            return;
-        }
-        float healthBeforeConsumption = PlayerSurvivalStats.Instance.currentHealth;
-        float maxHealth = PlayerSurvivalStats.Instance.maxHealth;
-
-        if (healthEffect != 0)
-        {
-            if ((healthBeforeConsumption + healthEffect) > maxHealth)
-            {
-                PlayerSurvivalStats.Instance.setHealth(maxHealth);
-            }
-            else
-            {
-                PlayerSurvivalStats.Instance.setHealth(healthBeforeConsumption + healthEffect);
-            }
-        }
-    }
-
 
     private static void caloriesEffectCalculation(float caloriesEffect)
     {

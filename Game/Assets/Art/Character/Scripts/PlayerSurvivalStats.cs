@@ -9,10 +9,7 @@ public class PlayerSurvivalStats : MonoBehaviour
 {
     public static PlayerSurvivalStats Instance { get; set; }
 
-    //Health
-    public float currentHealth;
-    public float maxHealth;
-    public bool isDead = false;
+   
 
     //Calories
     public float currentCalories;
@@ -50,7 +47,7 @@ public class PlayerSurvivalStats : MonoBehaviour
 
     private void Start()
     {
-        currentHealth = maxHealth;
+        
         currentCalories = maxCalories;
         currentHydrationPercent = maxHydrationPercent;
         StartCoroutine(decreaseHydrationHealth());
@@ -61,7 +58,7 @@ public class PlayerSurvivalStats : MonoBehaviour
         while (true) 
         {
             currentHydrationPercent -= 2;
-            currentHealth -= 0.5f;
+           
             yield return new WaitForSeconds(15); ;
         }
     
@@ -69,7 +66,7 @@ public class PlayerSurvivalStats : MonoBehaviour
 
     private void Update()
     {
-        if (isDead) return;
+        
 
 
         distanceTravelled += Vector3.Distance(player.transform.position,lastPosition);
@@ -80,34 +77,14 @@ public class PlayerSurvivalStats : MonoBehaviour
             distanceTravelled = 0;
             currentCalories -= 1;
         }
-        if (currentCalories <= 0)
-        {
-            TakeDamage(5);
-            // Debug.Log("Starving! Taking damage.");
-        }
-        if (currentHydrationPercent <= 0)
-        {
-            TakeDamage(10);
-            
-        }
+       
 
     }
-    public void TakeDamage(float amount) // Using float for consistency, can be int if preferred
-    {
-        if (isDead) return; // Can't take damage if already dead
-
-        currentHealth -= amount;
-
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
-    }
+ 
 
     private void Die()
     {
-        if (isDead) return; // Prevent multiple calls
-        isDead = true;
+       
 
         Debug.Log("Player has died!");
 
@@ -127,9 +104,7 @@ public class PlayerSurvivalStats : MonoBehaviour
         Debug.Log("Respawning...");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reloads the current scene
     }
-    public void setHealth(float newHealth) { 
-        currentHealth = newHealth;
-    }
+   
     public void setCalories(float newCalories) {
             currentCalories = newCalories;
     }
