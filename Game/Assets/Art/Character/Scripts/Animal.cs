@@ -4,80 +4,170 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Animal : MonoBehaviour
 {
     public string animalName;
     public bool playerInRange;
-   
+    public bool canBeKilled;
 
 
-    [SerializeField] int _animalHealth;
-    [SerializeField] int _animalMaxHealth;
+
+    public float animalHealth;
+    public float animalMaxHealth;
+
+
     [SerializeField] private GameObject _huntingUI;
+    [SerializeField] private GameObject _animalHolderUI;
+
+    private PlayerAnimation playerAnimation;
+
+    [SerializeField] private float hitDelay = 0.6f;
+
+    public float caloriesSpentHunting = 30;
+
+    private void Awake()
+    {
+        if (playerAnimation == null)
+        {
+
+            playerAnimation = FindObjectOfType<PlayerAnimation>();
+
+        }
+    }
 
     void Start()
     {
-        _animalHealth = _animalMaxHealth;
-        _huntingUI.SetActive(false);
+        animalHealth = animalMaxHealth;
+
+        if (_animalHolderUI != null)
+        {
+            _animalHolderUI.SetActive(false);
+        }
+
+
+        if (_huntingUI != null)
+        {
+            _huntingUI.SetActive(false);
+        }
+
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Animal OnTriggerEnter hit: " + other.gameObject.name);
-       
+        Weapon weapon = other.GetComponent<Weapon>();
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
-            _huntingUI.SetActive(true);
-            Debug.Log("Player entered Animal range.");
-            
+            if (_huntingUI != null)
+            {
+                _huntingUI.SetActive(true);
+            }
+
+            if (_animalHolderUI != null)
+            {
+                _animalHolderUI.SetActive(true);
+            }
+           
+            if (GlobalState.Instance != null)
+            {
+                GlobalState.Instance.resourceHealth = animalHealth;
+                GlobalState.Instance.resourceHealthMax = animalMaxHealth;
+            }
+
         }
         else if (other.CompareTag("AxeHitbox"))
         {
 
-            Weapon weapon = other.GetComponent<Weapon>();
-            if (weapon != null)
+            if (playerInRange && canBeKilled && playerAnimation != null && playerAnimation.TryRegisterHit() && weapon != null)
             {
-                TakeDamage(weapon.weaponDamage); // Call TakeDamage with the axe's damage value
-                Debug.Log($"Animal hit by axe. Damage: {weapon.weaponDamage}");
+                TakeDamage(weapon.weaponDamage);
             }
+           
+           
+           
         }
 
     }
 
+    internal void TakeDamage(int damage)
+    {
+        if (animalHealth > 0)
+        {
+            if (PlayerSurvivalStats.Instance != null)
+            {
+                PlayerSurvivalStats.Instance.currentCalories -= caloriesSpentHunting;
+            }
+
+            animalHealth -= damage;
+
+
+            if (GlobalState.Instance != null && playerInRange) // Ensure player is still looking at this tree
+            {
+                GlobalState.Instance.resourceHealth = animalHealth;
+            }
+
+            if (animalHealth <= 0)
+            {
+                StartCoroutine(DestroyAnimalDelayed());
+
+
+                if (_huntingUI != null)
+                {
+                    _huntingUI.SetActive(false);
+                }
+                if (_animalHolderUI != null)
+                {
+                    _animalHolderUI.SetActive(false);
+                }
+
+                if (GlobalState.Instance != null)
+                {
+                    GlobalState.Instance.resourceHealth = 0;
+                    GlobalState.Instance.resourceHealthMax = 0;
+
+                }
+            }
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Animal OnTriggerExit hit: " + other.gameObject.name);
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            _huntingUI.SetActive(false);
+            if (_huntingUI != null)
+            {
+                _huntingUI.SetActive(false);
+            }
+
+            if (_animalHolderUI != null)
+            {
+                _animalHolderUI.SetActive(false);
+            }
+
+            if (GlobalState.Instance != null)
+            {
+                GlobalState.Instance.resourceHealth = 0; 
+                GlobalState.Instance.resourceHealthMax = 0; 
+                
+            }
             Debug.Log("Player exited Animal range.");
         }
        
 
     }
 
-    internal void TakeDamage(int damage)
-    {
-        _animalHealth -= damage;
-        Debug.Log($" health updated to: {_animalHealth}/{_animalMaxHealth}");
-        if (_animalHealth<=0) 
-        {
-            StartCoroutine(DestroyAnimalDelayed());
-           
-        }
-    }
+
+ 
 
 
-
+  
     private IEnumerator DestroyAnimalDelayed()
     {
         yield return new WaitForSeconds(1.0f);
         Destroy(gameObject);
-        _huntingUI.SetActive(false);
-
-
+     
         GameObject killedAnimal = Instantiate(Resources.Load<GameObject>("MeatModel"), transform.position, Quaternion.Euler(0, 0, 0));
     }
 

@@ -440,8 +440,9 @@ MonoBehaviour:
   animalName: Chicken
   playerInRange: 0
   _animalHealth: 0
-  _animalMaxHealth: 40
+  _animalMaxHealth: 2
   _huntingUI: {fileID: 0}
+  _animalHolderUI: {fileID: 0}
 --- !u!65 &2820635022735977419
 BoxCollider:
   m_ObjectHideFlags: 0

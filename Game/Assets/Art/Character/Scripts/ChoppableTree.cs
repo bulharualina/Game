@@ -142,7 +142,7 @@ public class ChoppableTree : MonoBehaviour
 
     void DestroyTree()
     {
-       //Vector3 treePos = transform.position;
+       
 
        Destroy(transform.parent.gameObject);
         canBeChopped = false;

@@ -117,6 +117,7 @@ public class ItemInteractor : MonoBehaviour
             else if (animal != null) 
             {
                 
+
                 if (qKeyPressedThisFrame)
                 {
                     
