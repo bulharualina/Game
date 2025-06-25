@@ -114,22 +114,15 @@ public class ItemInteractor : MonoBehaviour
                     interacted = true;
                 }
             }
-            else if (animal != null) // This is the block we care about
+            else if (animal != null) 
             {
-                Debug.Log("Raycast hit an Animal!"); // ADD THIS
-                if (pickUpUIText != null)
-                {
-                    pickUpUIText.text = "Press [Q] to kill the " + animal.animalName;
-                }
-                pickUpUI.SetActive(true);
-
+                
                 if (qKeyPressedThisFrame)
                 {
-                    Debug.Log("Q pressed and raycast hit Animal!"); // ADD THIS
+                    
                     if (animal.playerInRange && !axeIsActive)
                     {
-                        Debug.Log("Conditions met: Player in range and axe not active. Dealing damage!"); // ADD THIS
-                                                                                                          // playerAnimation.TriggerChopAttack(); // UNCOMMENT THIS IF YOU WANT ANIMATION
+             
                         StartCoroutine(DealDamageTo(animal, 0.3f, EquipSystem.Instance.GetWeaponDamage()));
                         interacted = true;
                     }
