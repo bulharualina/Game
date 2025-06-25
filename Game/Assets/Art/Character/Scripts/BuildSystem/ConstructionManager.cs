@@ -250,8 +250,7 @@ public class ConstructionManager : MonoBehaviour
 
         Vector3 ghostPosition = copyOfGhost.transform.position;
         Quaternion ghostRotation = copyOfGhost.transform.rotation;
-       // Debug.Log($"Placing {itemToBeConstructed.name} at ghost position: {ghostPosition}, rotation: {ghostRotation.eulerAngles}");
-        //Debug.Log($"Ghost name: {copyOfGhost.name}, Ghost local position: {copyOfGhost.transform.localPosition}, Ghost local rotation: {copyOfGhost.transform.localEulerAngles}");
+      
 
         selectedGhost.gameObject.SetActive(false);
 
@@ -263,9 +262,7 @@ public class ConstructionManager : MonoBehaviour
         itemToBeConstructed.transform.position = ghostPosition;
         itemToBeConstructed.transform.rotation = ghostRotation;
 
-        // Making the Ghost Children to no longer be children of this item
-      
-        // Setting the default color/material
+       
 
 
         // Enabling back the solider collider that we disabled earlier
