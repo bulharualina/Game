@@ -22,12 +22,35 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnEnable()
     {
+        if (PlayerControls != null)
+        {
+            PlayerControls.Enable();
+        }
         PlayerControls = new PlayerControls();
         PlayerControls.Enable();
     }
 
     private void OnDisable()
     {
+        if (PlayerControls != null)
+        {
+            PlayerControls.Disable();
+        }
         PlayerControls.Disable();
+    }
+
+    private void OnDestroy()
+    {
+        if (PlayerControls != null)
+        {
+            PlayerControls.Dispose();
+            PlayerControls = null;
+        }
+
+        if (Instance == this)
+        {
+            Instance = null;
+
+        }
     }
 }
