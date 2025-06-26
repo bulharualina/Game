@@ -9,7 +9,7 @@ public class PlayerSurvivalStats : MonoBehaviour
 {
     public static PlayerSurvivalStats Instance { get; set; }
 
-   
+
 
     //Calories
     public float currentCalories;
@@ -28,8 +28,7 @@ public class PlayerSurvivalStats : MonoBehaviour
     public bool isHydrationActive;
 
     
-    [Header("Damage/Healing")]
-    public float deathDelay = 3f;
+ 
 
 
     [SerializeField] private Animator playerAnimator;
@@ -51,6 +50,7 @@ public class PlayerSurvivalStats : MonoBehaviour
         currentCalories = maxCalories;
         currentHydrationPercent = maxHydrationPercent;
         StartCoroutine(decreaseHydrationHealth());
+       
 
     }
 
@@ -82,29 +82,7 @@ public class PlayerSurvivalStats : MonoBehaviour
     }
  
 
-    private void Die()
-    {
-       
-
-        Debug.Log("Player has died!");
-
-     
-         if (playerAnimator != null) playerAnimator.SetTrigger("Die");
-
-        
-        StartCoroutine(HandleDeathAndRespawn());
-    }
-    IEnumerator HandleDeathAndRespawn()
-    {
-        // Optional: Fade screen to black, show "You Died" message
-        Debug.Log("Waiting for death delay...");
-        yield return new WaitForSeconds(deathDelay); // Wait for the specified delay
-
-       
-        Debug.Log("Respawning...");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reloads the current scene
-    }
-   
+  
     public void setCalories(float newCalories) {
             currentCalories = newCalories;
     }
