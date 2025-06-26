@@ -148,5 +148,7 @@ public class ChoppableTree : MonoBehaviour
         canBeChopped = false;
 
         GameObject choppedTree = Instantiate(Resources.Load<GameObject>("ChoppedTree"),transform.position,Quaternion.Euler(0,0,0));
+
+        choppedTree.transform.SetParent(transform.parent.transform.parent);
     }
 }

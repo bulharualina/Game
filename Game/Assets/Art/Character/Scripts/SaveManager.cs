@@ -50,8 +50,34 @@ public class SaveManager : MonoBehaviour
     private EnviromentData GetEnviromentData()
     {
         List<string> pickedupItems = InventorySystem.Instance.pickedupItems;
+        List<TreeData> saveTrees = new List<TreeData>();
 
-        return new EnviromentData(pickedupItems);
+        foreach (Transform t in EnviromentManager.Instance.allTrees.transform) 
+        {
+            if (t.CompareTag("Tree"))
+            {
+                var treeData = new TreeData();
+                treeData.name = "TreeParent";
+                treeData.position = new SerializableVector3(t.position.x, t.position.y, t.position.z);
+                treeData.rotation = new SerializableVector3(t.rotation.x, t.rotation.y, t.rotation.z);
+
+                saveTrees.Add(treeData);
+            }
+            else 
+            {
+                    var treeData = new TreeData();
+                    treeData.name = "Stump";
+                    treeData.position = new SerializableVector3(t.position.x, t.position.y, t.position.z);
+                    treeData.rotation = new SerializableVector3(t.rotation.x, t.rotation.y, t.rotation.z);
+
+                    saveTrees.Add(treeData);
+            }
+
+            
+        
+        }
+
+        return new EnviromentData(pickedupItems,saveTrees);
     }
 
 
@@ -146,6 +172,7 @@ public class SaveManager : MonoBehaviour
 
     private void SetEnviromentData(EnviromentData enviromentData)
     {
+        //PickUp items
         foreach (Transform itemType in EnviromentManager.Instance.allItems.transform) 
         {
             foreach (Transform item in itemType.transform)
@@ -159,6 +186,23 @@ public class SaveManager : MonoBehaviour
         }
 
         InventorySystem.Instance.pickedupItems = enviromentData.pickedupItems;
+
+        //Trees
+        foreach (Transform t in EnviromentManager.Instance.allTrees.transform) 
+        {
+            Destroy(t.gameObject);
+        
+        }
+
+        foreach (TreeData t in enviromentData.treeData)
+        {
+            var treePrefab = Instantiate(Resources.Load<GameObject>(t.name),
+                new Vector3(t.position.x, t.position.y, t.position.z),
+                Quaternion.Euler(t.rotation.x, t.rotation.y, t.rotation.z));
+
+            treePrefab.transform.SetParent(EnviromentManager.Instance.allTrees.transform);
+        
+        }
     }
 
     private void SetPlayerData(PlayerData playerData)

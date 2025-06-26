@@ -7,8 +7,20 @@ using UnityEngine;
 public class EnviromentData 
 {
     public List<string> pickedupItems;
-    public EnviromentData(List<string> _pickedupItemsems) 
+    public List<TreeData> treeData;
+    public EnviromentData(List<string> _pickedupItemsems, List<TreeData> _treeData) 
     {
         pickedupItems = _pickedupItemsems;
+        treeData = _treeData;
     }
+}
+
+[System.Serializable]
+public class TreeData 
+{
+    public string name;
+    public SerializableVector3 position;
+    public SerializableVector3 rotation;
+
+
 }
