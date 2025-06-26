@@ -23,7 +23,7 @@ public class Animal : MonoBehaviour
 
     private PlayerAnimation playerAnimation;
 
-    [SerializeField] private float hitDelay = 0.6f;
+  
 
     public float caloriesSpentHunting = 30;
 

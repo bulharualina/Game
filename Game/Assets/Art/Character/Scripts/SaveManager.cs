@@ -51,33 +51,61 @@ public class SaveManager : MonoBehaviour
     {
         List<string> pickedupItems = InventorySystem.Instance.pickedupItems;
         List<TreeData> saveTrees = new List<TreeData>();
+        List<string> saveAnimals = new List<string>();
+        List<BuildingData> saveBuildings = new List<BuildingData>();
 
-        foreach (Transform t in EnviromentManager.Instance.allTrees.transform) 
+        //Trees
+        foreach (Transform tree in EnviromentManager.Instance.allTrees.transform) 
         {
-            if (t.CompareTag("Tree"))
+            if (tree.CompareTag("Tree"))
             {
                 var treeData = new TreeData();
                 treeData.name = "TreeParent";
-                treeData.position = new SerializableVector3(t.position.x, t.position.y, t.position.z);
-                treeData.rotation = new SerializableVector3(t.rotation.x, t.rotation.y, t.rotation.z);
+                treeData.position = new SerializableVector3(tree.position.x, tree.position.y, tree.position.z);
+                treeData.rotation = new SerializableVector3(tree.rotation.x, tree.rotation.y, tree.rotation.z);
 
                 saveTrees.Add(treeData);
             }
-            else 
+            else
             {
-                    var treeData = new TreeData();
-                    treeData.name = "Stump";
-                    treeData.position = new SerializableVector3(t.position.x, t.position.y, t.position.z);
-                    treeData.rotation = new SerializableVector3(t.rotation.x, t.rotation.y, t.rotation.z);
+                var treeData = new TreeData();
+                treeData.name = "Stump";
+                treeData.position = new SerializableVector3(tree.position.x, tree.position.y, tree.position.z);
+                treeData.rotation = new SerializableVector3(tree.rotation.x, tree.rotation.y, tree.rotation.z);
 
-                    saveTrees.Add(treeData);
+                saveTrees.Add(treeData);
             }
-
-            
-        
         }
 
-        return new EnviromentData(pickedupItems,saveTrees);
+        //Animals
+        foreach (Transform animalType in EnviromentManager.Instance.allAnimals.transform)
+        {
+            foreach (Transform a in animalType.transform) 
+            {
+                saveAnimals.Add(a.gameObject.name);
+            
+            }
+        }
+
+        //Buildings
+        if (EnviromentManager.Instance.allBuildings != null)
+        {
+            foreach (Transform building in EnviromentManager.Instance.allBuildings.transform)
+            {
+                var buildingData = new BuildingData();
+                buildingData.name = building.gameObject.name.Replace("(Clone)", ""); 
+                buildingData.position = building.position;    
+                buildingData.rotation = building.rotation;    
+
+                saveBuildings.Add(buildingData);
+            }
+        }
+       
+
+
+
+
+        return new EnviromentData(pickedupItems,saveTrees,saveAnimals,saveBuildings);
     }
 
 
@@ -187,13 +215,14 @@ public class SaveManager : MonoBehaviour
 
         InventorySystem.Instance.pickedupItems = enviromentData.pickedupItems;
 
-        //Trees
+        //TREES
+        //destroy existing  trees
         foreach (Transform t in EnviromentManager.Instance.allTrees.transform) 
         {
             Destroy(t.gameObject);
         
         }
-
+        //add trees and stumps
         foreach (TreeData t in enviromentData.treeData)
         {
             var treePrefab = Instantiate(Resources.Load<GameObject>(t.name),
@@ -202,6 +231,57 @@ public class SaveManager : MonoBehaviour
 
             treePrefab.transform.SetParent(EnviromentManager.Instance.allTrees.transform);
         
+        }
+
+        //ANIMALS
+        // destroy animals
+        foreach (Transform animalType in EnviromentManager.Instance.allAnimals.transform)
+        {
+            foreach (Transform a in animalType.transform)
+            {
+                if (enviromentData.animalsData.Contains(a.gameObject.name) == false) 
+                {
+                    Destroy(a.gameObject);
+                }
+
+            }
+        }
+
+        //BUILDINGS
+        if (EnviromentManager.Instance.allBuildings != null)
+        {
+            // Destroy existing buildings 
+            List<GameObject> existingBuildings = new List<GameObject>();
+            foreach (Transform building in EnviromentManager.Instance.allBuildings.transform)
+            {
+                existingBuildings.Add(building.gameObject);
+            }
+            foreach (GameObject buildingGO in existingBuildings)
+            {
+                Destroy(buildingGO);
+            }
+
+            // Instantiate saved buildings
+            foreach (BuildingData bData in enviromentData.buildingData)
+            {
+                GameObject buildingPrefab = Resources.Load<GameObject>(bData.name);
+                if (buildingPrefab != null)
+                {
+                    GameObject instantiatedBuilding = Instantiate(buildingPrefab, bData.position, bData.rotation);    
+                    instantiatedBuilding.name = bData.name; 
+                    instantiatedBuilding.transform.SetParent(EnviromentManager.Instance.allBuildings.transform);
+
+                    
+                    Constructable constructable = instantiatedBuilding.GetComponent<Constructable>();
+                    if (constructable != null)
+                    {
+                        constructable.solidCollider.enabled = true;
+                        constructable.SetDefaultColor();
+                       
+                    }
+                }
+               
+            }
         }
     }
 

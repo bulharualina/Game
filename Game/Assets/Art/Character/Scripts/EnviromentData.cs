@@ -8,10 +8,14 @@ public class EnviromentData
 {
     public List<string> pickedupItems;
     public List<TreeData> treeData;
-    public EnviromentData(List<string> _pickedupItemsems, List<TreeData> _treeData) 
+    public List<string> animalsData;
+    public List<BuildingData> buildingData;
+    public EnviromentData(List<string> _pickedupItemsems, List<TreeData> _treeData, List<string> _animalsData, List<BuildingData> _buildingData) 
     {
         pickedupItems = _pickedupItemsems;
         treeData = _treeData;
+        animalsData = _animalsData;
+        buildingData = _buildingData;
     }
 }
 
@@ -23,4 +27,14 @@ public class TreeData
     public SerializableVector3 rotation;
 
 
+}
+
+[System.Serializable]
+public class BuildingData
+{
+    public string name;
+    public SerializableVector3 position;
+    public SerializableQuaternion rotation; 
+
+   
 }

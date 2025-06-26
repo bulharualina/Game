@@ -32,6 +32,8 @@ public class ConstructionManager : MonoBehaviour
 
     public GameObject constructionUI;
     public GameObject player;
+
+    public Transform buildingsParent;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -256,8 +258,10 @@ public class ConstructionManager : MonoBehaviour
 
         // Setting the item to be active again (after we disabled it in the ray cast)
         itemToBeConstructed.gameObject.SetActive(true);
+
+
         // Setting the parent to be the root of our scene
-        itemToBeConstructed.transform.SetParent(transform.parent.transform.parent, true);
+        itemToBeConstructed.transform.SetParent(buildingsParent, true);
         //var offsetRand = UnityEngine.Random.Range(0.01f,0.03f);
 
         //itemToBeConstructed.transform.position = new Vector3(ghostPosition.x, ghostPosition.y, ghostPosition.z + offsetRand);
@@ -270,6 +274,8 @@ public class ConstructionManager : MonoBehaviour
         // Enabling back the solider collider that we disabled earlier
         itemToBeConstructed.GetComponent<Constructable>().solidCollider.enabled = true;
         itemToBeConstructed.GetComponent<Constructable>().SetDefaultColor();
+
+        
 
         if (itemToBeConstructed.name == "FoundationModel")
         {
@@ -306,7 +312,7 @@ public class ConstructionManager : MonoBehaviour
     private void PlaceItemFreeStyle()
     {
         // Setting the parent to be the root of our scene
-        itemToBeConstructed.transform.SetParent(transform.parent.transform.parent, true);
+        itemToBeConstructed.transform.SetParent(buildingsParent, true);
 
         // Making the Ghost Children to no longer be children of this item
         itemToBeConstructed.GetComponent<Constructable>().ExtractGhostMembers();
