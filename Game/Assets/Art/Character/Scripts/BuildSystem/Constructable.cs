@@ -95,7 +95,12 @@ public class Constructable : MonoBehaviour
 
     public void SetDefaultColor()
     {
-        mRenderer.material = defaultMaterial;
+        if (mRenderer == null)
+            mRenderer = GetComponent<Renderer>();
+
+        if (mRenderer != null)
+            mRenderer.material = defaultMaterial;
+        
     }
 
     public void ExtractGhostMembers()

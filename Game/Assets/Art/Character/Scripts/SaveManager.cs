@@ -50,62 +50,29 @@ public class SaveManager : MonoBehaviour
     private EnviromentData GetEnviromentData()
     {
         List<string> pickedupItems = InventorySystem.Instance.pickedupItems;
-        List<TreeData> saveTrees = new List<TreeData>();
-        List<string> saveAnimals = new List<string>();
+       
         List<BuildingData> saveBuildings = new List<BuildingData>();
 
-        //Trees
-        foreach (Transform tree in EnviromentManager.Instance.allTrees.transform) 
-        {
-            if (tree.CompareTag("Tree"))
-            {
-                var treeData = new TreeData();
-                treeData.name = "TreeParent";
-                treeData.position = new SerializableVector3(tree.position.x, tree.position.y, tree.position.z);
-                treeData.rotation = new SerializableVector3(tree.rotation.x, tree.rotation.y, tree.rotation.z);
-
-                saveTrees.Add(treeData);
-            }
-            else
-            {
-                var treeData = new TreeData();
-                treeData.name = "Stump";
-                treeData.position = new SerializableVector3(tree.position.x, tree.position.y, tree.position.z);
-                treeData.rotation = new SerializableVector3(tree.rotation.x, tree.rotation.y, tree.rotation.z);
-
-                saveTrees.Add(treeData);
-            }
-        }
-
-        //Animals
-        foreach (Transform animalType in EnviromentManager.Instance.allAnimals.transform)
-        {
-            foreach (Transform a in animalType.transform) 
-            {
-                saveAnimals.Add(a.gameObject.name);
-            
-            }
-        }
 
         //Buildings
-        if (EnviromentManager.Instance.allBuildings != null)
+        if (ConstructionManager.Instance != null)
         {
-            foreach (Transform building in EnviromentManager.Instance.allBuildings.transform)
+            foreach (GameObject building in ConstructionManager.Instance.placedBuildings)
             {
-                var buildingData = new BuildingData();
-                buildingData.name = building.gameObject.name.Replace("(Clone)", ""); 
-                buildingData.position = building.position;    
-                buildingData.rotation = building.rotation;    
-
-                saveBuildings.Add(buildingData);
+                if (building != null)
+                {
+                    BuildingData bData = new BuildingData();
+                    bData.name = building.name;
+                    bData.position = building.transform.position;
+                    bData.rotation = building.transform.rotation;
+                    saveBuildings.Add(bData);
+                    
+                }
             }
         }
-       
 
 
-
-
-        return new EnviromentData(pickedupItems,saveTrees,saveAnimals,saveBuildings);
+        return new EnviromentData(pickedupItems,saveBuildings);
     }
 
 
@@ -215,72 +182,43 @@ public class SaveManager : MonoBehaviour
 
         InventorySystem.Instance.pickedupItems = enviromentData.pickedupItems;
 
-        //TREES
-        //destroy existing  trees
-        foreach (Transform t in EnviromentManager.Instance.allTrees.transform) 
-        {
-            Destroy(t.gameObject);
-        
-        }
-        //add trees and stumps
-        foreach (TreeData t in enviromentData.treeData)
-        {
-            var treePrefab = Instantiate(Resources.Load<GameObject>(t.name),
-                new Vector3(t.position.x, t.position.y, t.position.z),
-                Quaternion.Euler(t.rotation.x, t.rotation.y, t.rotation.z));
 
-            treePrefab.transform.SetParent(EnviromentManager.Instance.allTrees.transform);
-        
-        }
-
-        //ANIMALS
-        // destroy animals
-        foreach (Transform animalType in EnviromentManager.Instance.allAnimals.transform)
-        {
-            foreach (Transform a in animalType.transform)
-            {
-                if (enviromentData.animalsData.Contains(a.gameObject.name) == false) 
-                {
-                    Destroy(a.gameObject);
-                }
-
-            }
-        }
 
         //BUILDINGS
+        
         if (EnviromentManager.Instance.allBuildings != null)
         {
-            // Destroy existing buildings 
-            List<GameObject> existingBuildings = new List<GameObject>();
-            foreach (Transform building in EnviromentManager.Instance.allBuildings.transform)
+            
+            if (ConstructionManager.Instance != null)
             {
-                existingBuildings.Add(building.gameObject);
-            }
-            foreach (GameObject buildingGO in existingBuildings)
-            {
-                Destroy(buildingGO);
-            }
+                
+                ConstructionManager.Instance.placedBuildings.Clear();
 
-            // Instantiate saved buildings
-            foreach (BuildingData bData in enviromentData.buildingData)
-            {
-                GameObject buildingPrefab = Resources.Load<GameObject>(bData.name);
-                if (buildingPrefab != null)
+                foreach (BuildingData bData in enviromentData.buildingData)
                 {
-                    GameObject instantiatedBuilding = Instantiate(buildingPrefab, bData.position, bData.rotation);    
-                    instantiatedBuilding.name = bData.name; 
-                    instantiatedBuilding.transform.SetParent(EnviromentManager.Instance.allBuildings.transform);
-
-                    
-                    Constructable constructable = instantiatedBuilding.GetComponent<Constructable>();
-                    if (constructable != null)
+                    GameObject buildingPrefab = Resources.Load<GameObject>(bData.name);
+                   
+                    if (buildingPrefab != null)
                     {
-                        constructable.solidCollider.enabled = true;
-                        constructable.SetDefaultColor();
+                        GameObject newBuilding = Instantiate(buildingPrefab, bData.position, bData.rotation);
+                        newBuilding.name = bData.name;
                        
+                        newBuilding.tag = "PlacedBuilding";
+
+                        Constructable constructable = newBuilding.GetComponent<Constructable>();
+                        if (constructable != null)
+                        {
+                            constructable.solidCollider.enabled = true;
+                            constructable.SetDefaultColor();
+                        }
+
+                        ConstructionManager.Instance.placedBuildings.Add(newBuilding);
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Prefab {bData.name} not found in Resources folder!");
                     }
                 }
-               
             }
         }
     }
@@ -357,7 +295,11 @@ public class SaveManager : MonoBehaviour
 
     private IEnumerator DelayadLoading(int slotNum)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitUntil(() =>
+                                         EnviromentManager.Instance != null &&
+                                         ConstructionManager.Instance != null);
+
+
 
         LoadGame(slotNum);
     }

@@ -29,14 +29,14 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !isOpen)
+        if (Input.GetKeyDown(KeyCode.M) && !isOpen)
         {
             uiCanvas.SetActive(false);
             menuCanvas.SetActive(true);
             isOpen = true;
 
         }
-        else if (Input.GetKeyDown(KeyCode.Escape) && isOpen)
+        else if (Input.GetKeyDown(KeyCode.M) && isOpen)
         {
             saveMenu.SetActive(false);
             infoMenu.SetActive(false);

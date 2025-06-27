@@ -22,7 +22,7 @@ public class HydrationBar : MonoBehaviour
         _slider = GetComponent<Slider>();
     }
 
-    // Update is called once per frame
+  
     void Update()
     {
         currentHydration = playerSurvivalState.GetComponent<PlayerSurvivalStats>().currentHydrationPercent;

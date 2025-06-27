@@ -22,11 +22,11 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if (PlayerControls != null)
+        if (PlayerControls == null)
         {
-            PlayerControls.Enable();
+            PlayerControls = new PlayerControls();
         }
-        PlayerControls = new PlayerControls();
+       
         PlayerControls.Enable();
     }
 
@@ -36,7 +36,7 @@ public class PlayerInputManager : MonoBehaviour
         {
             PlayerControls.Disable();
         }
-        PlayerControls.Disable();
+       
     }
 
     private void OnDestroy()

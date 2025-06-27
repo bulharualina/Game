@@ -5,7 +5,7 @@ using UnityEngine;
 public class ConstructionManager : MonoBehaviour
 {
     public static ConstructionManager Instance { get; set; }
-
+    public List<GameObject> placedBuildings = new List<GameObject>(); 
     public GameObject itemToBeConstructed;
     public bool inConstructionMode = false;
     public GameObject constructionHoldingSpot;
@@ -300,8 +300,10 @@ public class ConstructionManager : MonoBehaviour
             DestroyItem(selectedGhost);
         }
 
-        //Adding all the ghosts of this item into the manager's ghost bank
-     
+        
+
+        placedBuildings.Add(itemToBeConstructed);
+    
 
         itemToBeConstructed = null;
 
@@ -327,6 +329,8 @@ public class ConstructionManager : MonoBehaviour
         GetAllGhosts(itemToBeConstructed);
         PerformGhostDeletionScan();
 
+        placedBuildings.Add(itemToBeConstructed);
+     
         itemToBeConstructed = null;
 
         inConstructionMode = false;
@@ -347,5 +351,13 @@ public class ConstructionManager : MonoBehaviour
 
         return false;
     }
+    public void PlaceBuilding(GameObject buildingPrefab, Vector3 position, Quaternion rotation)
+    {
+        GameObject newBuilding = Instantiate(buildingPrefab, position, rotation);
+        newBuilding.name = buildingPrefab.name.Replace("(Clone)", "");
+        placedBuildings.Add(newBuilding);
+        newBuilding.tag = "PlacedBuilding";
+    }
+
 }
 

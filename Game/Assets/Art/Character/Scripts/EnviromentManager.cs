@@ -8,9 +8,7 @@ public class EnviromentManager : MonoBehaviour
 
     public GameObject allItems;
 
-    public GameObject allTrees;
-
-    public GameObject allAnimals;
+    
 
     public GameObject allBuildings;
 
