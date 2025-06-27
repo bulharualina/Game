@@ -118,14 +118,14 @@ MonoBehaviour:
   isTrashable: 0
   thisName: Axe
   thisDescription: Weapon
-  thisFunctionality: Fells trees,kills animals
+  thisFunctionality: "Drag to quick slot to use. Press 1\u20135 to equip."
   isConsumable: 0
-  healthEffect: 0
   caloriesEffect: 0
   hydrationEffect: 0
   isEquippable: 0
   isInsideQuickSlot: 0
   isSelected: 0
+  isUsable: 0
 --- !u!114 &-4978782516306986171
 MonoBehaviour:
   m_ObjectHideFlags: 0
