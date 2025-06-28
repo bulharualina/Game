@@ -3,6 +3,7 @@
 Link: https://github.com/bulharualina/Game.git
 
 Build Steps:
+
 	Step 1: Clone the repository. Ex: git clone https://github.com/bulharualina/Game.git
 	Step 2: Open Unity Hub.
 	Step 3: Click the "Add" button -> Add project from disk.
@@ -16,5 +17,6 @@ Build Steps:
 			Click Build.
 			Choose a folder where the compiled build will be saved. 
 Installation & Launch:
+
 	Step 1: Navigate to the Build folder.
 	Step 2: Double-click the .exe file. 
